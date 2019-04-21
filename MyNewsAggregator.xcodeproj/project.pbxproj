@@ -16,7 +16,7 @@
 		95781520225F8644004DA308 /* TemporaryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578151F225F8644004DA308 /* TemporaryStorage.swift */; };
 		95781523225F86A7004DA308 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781522225F86A7004DA308 /* NewsTableViewController.swift */; };
 		95781525225F874B004DA308 /* ContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781524225F874B004DA308 /* ContentTableViewController.swift */; };
-		95781527225F877A004DA308 /* BookmarksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781526225F877A004DA308 /* BookmarksTableViewController.swift */; };
+		95781527225F877A004DA308 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781526225F877A004DA308 /* BookmarksViewController.swift */; };
 		95781529225F879A004DA308 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781528225F879A004DA308 /* ArticleViewController.swift */; };
 		9578152B225F8BB5004DA308 /* CustomNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578152A225F8BB5004DA308 /* CustomNewsCell.swift */; };
 		9578152E225F8CD0004DA308 /* SwipeCustomNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578152D225F8CD0004DA308 /* SwipeCustomNewsCell.swift */; };
@@ -41,7 +41,7 @@
 		9578151F225F8644004DA308 /* TemporaryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryStorage.swift; sourceTree = "<group>"; };
 		95781522225F86A7004DA308 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		95781524225F874B004DA308 /* ContentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewController.swift; sourceTree = "<group>"; };
-		95781526225F877A004DA308 /* BookmarksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksTableViewController.swift; sourceTree = "<group>"; };
+		95781526225F877A004DA308 /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
 		95781528225F879A004DA308 /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		9578152A225F8BB5004DA308 /* CustomNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNewsCell.swift; sourceTree = "<group>"; };
 		9578152D225F8CD0004DA308 /* SwipeCustomNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCustomNewsCell.swift; sourceTree = "<group>"; };
@@ -86,7 +86,7 @@
 				95781522225F86A7004DA308 /* NewsTableViewController.swift */,
 				95E1E06F225F756B005591FE /* CategoriesUIViewController.swift */,
 				95781524225F874B004DA308 /* ContentTableViewController.swift */,
-				95781526225F877A004DA308 /* BookmarksTableViewController.swift */,
+				95781526225F877A004DA308 /* BookmarksViewController.swift */,
 				95781528225F879A004DA308 /* ArticleViewController.swift */,
 			);
 			path = Controllers;
@@ -346,7 +346,7 @@
 				95781512225F8470004DA308 /* Article.swift in Sources */,
 				95781525225F874B004DA308 /* ContentTableViewController.swift in Sources */,
 				9578151E225F8610004DA308 /* NetworkProtocol.swift in Sources */,
-				95781527225F877A004DA308 /* BookmarksTableViewController.swift in Sources */,
+				95781527225F877A004DA308 /* BookmarksViewController.swift in Sources */,
 				95E1E076225F756B005591FE /* MyNewsAggregator.xcdatamodeld in Sources */,
 				9578152B225F8BB5004DA308 /* CustomNewsCell.swift in Sources */,
 				95E1E070225F756B005591FE /* CategoriesUIViewController.swift in Sources */,
@@ -501,6 +501,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WD94C6GWGP;
 				INFOPLIST_FILE = "$(SRCROOT)/MyNewsAggregator/Supporting files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -508,7 +509,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.PyrovSergey.MyNewsAggregator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -520,6 +521,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WD94C6GWGP;
 				INFOPLIST_FILE = "$(SRCROOT)/MyNewsAggregator/Supporting files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -527,7 +529,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.PyrovSergey.MyNewsAggregator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

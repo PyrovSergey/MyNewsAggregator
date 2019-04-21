@@ -96,37 +96,58 @@
             </objects>
             <point key="canvasLocation" x="3479.7101449275365" y="357.88043478260875"/>
         </scene>
-        <!--Bookmarks-->
-        <scene sceneID="nrd-9G-8Zi">
+        <!--Bookmarks View Controller-->
+        <scene sceneID="a5y-Ve-dnJ">
             <objects>
-                <tableViewController id="J99-NL-CwE" customClass="BookmarksTableViewController" customModule="MyNewsAggregator" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="MhQ-2P-FLa">
+                <viewController id="FKg-oR-NVF" customClass="BookmarksViewController" customModule="MyNewsAggregator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZGQ-Kg-KX9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9um-Iv-RhC">
+                                <rect key="frame" x="0.0" y="64" width="414" height="623"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="swipeNewsCell" id="BgF-Pf-6ut" customClass="SwipeCustomNewsCell" customModule="MyNewsAggregator" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BgF-Pf-6ut" id="Aya-Qf-VCu">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="wrF-X3-PMb" kind="show" identifier="goToArticleViewFromBookmarks" id="GGD-qO-GY2"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bookmark list is empty" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HDZ-gy-EMj">
+                                <rect key="frame" x="111.00000000000001" y="356.66666666666669" width="192.33333333333337" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="swipeNewsCell" id="PTF-uX-0EH" customClass="SwipeCustomNewsCell" customModule="MyNewsAggregator" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PTF-uX-0EH" id="GzM-FY-cgg">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="J99-NL-CwE" id="4KL-FX-Iot"/>
-                            <outlet property="delegate" destination="J99-NL-CwE" id="bem-uw-RIJ"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Bookmarks" id="29H-rL-8Ql"/>
+                        <constraints>
+                            <constraint firstItem="HDZ-gy-EMj" firstAttribute="centerX" secondItem="ZGQ-Kg-KX9" secondAttribute="centerX" id="8Fb-9s-aud"/>
+                            <constraint firstItem="9um-Iv-RhC" firstAttribute="trailing" secondItem="zOX-Xc-VMR" secondAttribute="trailing" id="VNg-mW-0Ya"/>
+                            <constraint firstItem="HDZ-gy-EMj" firstAttribute="centerY" secondItem="ZGQ-Kg-KX9" secondAttribute="centerY" id="bn3-Ey-SZt"/>
+                            <constraint firstItem="9um-Iv-RhC" firstAttribute="leading" secondItem="zOX-Xc-VMR" secondAttribute="leading" id="qbU-iC-Y4j"/>
+                            <constraint firstItem="9um-Iv-RhC" firstAttribute="top" secondItem="zOX-Xc-VMR" secondAttribute="top" id="sfa-V1-AI8"/>
+                            <constraint firstItem="9um-Iv-RhC" firstAttribute="bottom" secondItem="zOX-Xc-VMR" secondAttribute="bottom" id="zhk-vb-AHk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zOX-Xc-VMR"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="bfH-51-8Fv"/>
                     <connections>
-                        <segue destination="wrF-X3-PMb" kind="show" identifier="goToArticleViewFromBookmarks" id="tRI-kT-xxt"/>
+                        <outlet property="labelBookmarksIsEmpty" destination="HDZ-gy-EMj" id="daT-Sx-Qpw"/>
+                        <outlet property="tableView" destination="9um-Iv-RhC" id="UGP-0T-NKE"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ggd-q8-P32" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EPP-gS-D3A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2510.144927536232" y="1069.5652173913045"/>
+            <point key="canvasLocation" x="2508.6956521739135" y="1069.5652173913045"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -213,7 +234,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="J99-NL-CwE" kind="relationship" relationship="rootViewController" id="mq8-ak-2aJ"/>
+                        <segue destination="FKg-oR-NVF" kind="relationship" relationship="rootViewController" id="G5F-YV-TMh"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aig-hT-g4k" userLabel="First Responder" sceneMemberID="firstResponder"/>

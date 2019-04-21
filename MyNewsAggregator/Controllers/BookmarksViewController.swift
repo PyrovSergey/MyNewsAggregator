@@ -10,15 +10,18 @@ import UIKit
 import RealmSwift
 import SwipeCellKit
 
-class BookmarksTableViewController: UITableViewController, SwipeTableViewCellDelegate {
+class BookmarksViewController: UIViewController, SwipeTableViewCellDelegate, UITableViewDataSource, UITableViewDelegate {
     
     private let realm = try! Realm()
-    private var emptyLabel: UILabel!
     private var bookmarksArray : Results<Article>?
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var labelBookmarksIsEmpty: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareEmptyLabel()
+        tableView.dataSource = self
+        tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: "SwipeCustomNewsCell", bundle: nil), forCellReuseIdentifier: "swipeCell")
     }
@@ -28,7 +31,7 @@ class BookmarksTableViewController: UITableViewController, SwipeTableViewCellDel
         load()
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "swipeCell", for: indexPath) as! SwipeCustomNewsCell
         if (bookmarksArray?.count)! > 0 {
             cell.delegate = self
@@ -42,8 +45,8 @@ class BookmarksTableViewController: UITableViewController, SwipeTableViewCellDel
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        emptyLabel.isHidden = (bookmarksArray?.count)! != 0
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        labelBookmarksIsEmpty.isHidden = (bookmarksArray?.count)! != 0
         return (bookmarksArray?.count)!
     }
     
@@ -65,10 +68,12 @@ class BookmarksTableViewController: UITableViewController, SwipeTableViewCellDel
         return options
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("didSelectRowAt --> \(indexPath.row)")
         performSegue(withIdentifier: "goToArticleViewFromBookmarks", sender: self)
         tableView.deselectRow(at: indexPath, animated: true)
     }
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destintionVC = segue.destination as! ArticleViewController
@@ -92,18 +97,5 @@ class BookmarksTableViewController: UITableViewController, SwipeTableViewCellDel
                 print("Error deleting bookmark \(error)")
             }
         }
-    }
-    
-    func showEmptyLabel() {
-        emptyLabel.isHidden = false
-    }
-    
-    private func prepareEmptyLabel() {
-        emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-        emptyLabel.center = CGPoint(x: 160, y: 285)
-        emptyLabel.textAlignment = .center
-        emptyLabel.text = "Bookmark list is empty"
-        emptyLabel.isHidden = true
-        self.view.addSubview(emptyLabel)
     }
 }

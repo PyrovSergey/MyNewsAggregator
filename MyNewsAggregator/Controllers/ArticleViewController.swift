@@ -15,6 +15,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate {
     private let realm = try! Realm()
     private var bookmarksArray : Results<Article>?
     private var addToBookmarksButton: UIBarButtonItem?
+    private var goToSourceButton: UIBarButtonItem?
     
     var article: Article?
 
@@ -23,7 +24,12 @@ class ArticleViewController: UIViewController, WKNavigationDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         addToBookmarksButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.bookmarks, target: self, action: #selector(ArticleViewController.clickAddToBookmarksButton(_:)))
-        self.navigationItem.rightBarButtonItem = addToBookmarksButton
+        
+        goToSourceButton = UIBarButtonItem(title: "Source", style: .plain, target: self, action:
+            #selector(ArticleViewController.showAlertMessageGoToTheSource(_:)))
+        
+        //self.navigationItem.rightBarButtonItem = addToBookmarksButton
+        self.navigationItem.rightBarButtonItems = [addToBookmarksButton, goToSourceButton] as? [UIBarButtonItem]
         checkArticleInBookmarks(article: article)
     }
     
@@ -65,6 +71,21 @@ class ArticleViewController: UIViewController, WKNavigationDelegate {
         } catch {
             print("Error saving article \(error)")
         }
+    }
+    
+    private func goToSource() {
+        if let url = URL(string: article!.articleUrl) {
+            UIApplication.shared.open(url, options: [:])
+        }
+    }
+    
+    @objc private func showAlertMessageGoToTheSource(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "Open in source?", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+            self.goToSource()
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
     
     private func checkArticleInBookmarks(article: Article?) {
