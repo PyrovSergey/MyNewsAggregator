@@ -10,6 +10,7 @@ import UIKit
 import SDWebImage
 import GearRefreshControl
 
+
 class ContentTableViewController: UITableViewController {
     
     private var newsArray = [Article]()
@@ -18,31 +19,19 @@ class ContentTableViewController: UITableViewController {
     private var gearRefreshControl: GearRefreshControl!
     
     var parentController: CategoriesUIViewController?
+}
+
+// MARK: - Override
+extension ContentTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareEmptyLabel()
-        
-        gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
-        gearRefreshControl.addTarget(self, action: #selector(ContentTableViewController.refresh), for: UIControl.Event.valueChanged)
-        self.refreshControl = gearRefreshControl
-        gearRefreshControl.gearTintColor = .white
-        
-        tableView.backgroundView = spiner
-        spiner.startAnimating()
-        tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "newsCell")
-        tableView.separatorStyle = .none
+        setupView()
     }
-    
-    @objc func refresh() {
-        if let parent = parentController {
-            NetworkManager.instace.getUpdateCategoryLists(listener: parent)
-        }
-    }
-    
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        gearRefreshControl.scrollViewDidScroll(scrollView)
-    }
+}
+
+// MARK: - Public Interface
+extension ContentTableViewController {
     
     func setNewListCategoryAndUpdateUI(articleArray: [Article]) {
         print("setNewListCategoryAndUpdateUI --> \(articleArray.count)")
@@ -52,8 +41,11 @@ class ContentTableViewController: UITableViewController {
         gearRefreshControl.endRefreshing()
         emptyLabel.isHidden = articleArray.count != 0
     }
+}
+
+// MARK: - UITableViewDataSource
+extension ContentTableViewController {
     
-    // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return newsArray.count
     }
@@ -68,6 +60,10 @@ class ContentTableViewController: UITableViewController {
         cell.articlePublicationTimeLabel.text = currentArticle.articlePublicationTime
         return cell
     }
+}
+
+// MARK: - UITableViewDelegate
+extension ContentTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let storyboard = self.parent?.storyboard {
@@ -76,8 +72,34 @@ class ContentTableViewController: UITableViewController {
             navigationController!.pushViewController(articleViewController, animated: true)
         }
     }
+}
+
+// MARK: - UIScrollViewDelegate
+extension ContentTableViewController {
     
-    private func prepareEmptyLabel() {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        gearRefreshControl.scrollViewDidScroll(scrollView)
+    }
+}
+
+// MARK: - Private
+private extension ContentTableViewController {
+    
+    func setupView() {
+        prepareEmptyLabel()
+        
+        gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
+        gearRefreshControl.addTarget(self, action: #selector(ContentTableViewController.refresh), for: UIControl.Event.valueChanged)
+        self.refreshControl = gearRefreshControl
+        gearRefreshControl.gearTintColor = .white
+        
+        tableView.backgroundView = spiner
+        spiner.startAnimating()
+        tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "newsCell")
+        tableView.separatorStyle = .none
+    }
+    
+    func prepareEmptyLabel() {
         emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         emptyLabel.center = CGPoint(x: 160, y: 285)
         emptyLabel.textAlignment = .center
@@ -85,4 +107,11 @@ class ContentTableViewController: UITableViewController {
         emptyLabel.isHidden = true
         self.view.addSubview(emptyLabel)
     }
+    
+    @objc func refresh() {
+        if let parent = parentController {
+            NetworkManager.shared.getUpdateCategoryLists(listener: parent)
+        }
+    }
+    
 }

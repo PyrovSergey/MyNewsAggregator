@@ -11,7 +11,8 @@ import SwipeMenuViewController
 import Alamofire
 import SwiftyJSON
 
-class CategoriesUIViewController: SwipeMenuViewController, NetworkProtocol {
+
+class CategoriesUIViewController: SwipeMenuViewController {
     
     private let arraySwipe = ["General", "Entertainment", "Sport", "Technology", "Health", "Business"]
     private var arrayControllers = [String : ContentTableViewController]()
@@ -19,43 +20,6 @@ class CategoriesUIViewController: SwipeMenuViewController, NetworkProtocol {
     private var options = SwipeMenuViewOptions()
     private var dataCount: Int = 6
     private var firstOpening: Bool = true
-    
-    override func viewDidLoad() {
-        arraySwipe.forEach { data in
-            let vc = ContentTableViewController()
-            arrayControllers[data] = vc
-            vc.title = data
-            vc.parentController = self
-            self.addChild(vc)
-        }
-        super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        NetworkManager.instace.getUpdateCategoryLists(listener: self)
-        self.tabBarController?.tabBar.isHidden = false
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        if firstOpening {
-            reload()
-            firstOpening = false
-        }
-    }
-    
-    func successRequest(result: [Article], category: String) {
-        let vc = arrayControllers[category]
-        vc?.setNewListCategoryAndUpdateUI(articleArray: result)
-    }
-    
-    func errorRequest(errorMessage: String) {
-        
-    }
-    
-    private func reload() {
-        swipeMenuView.reloadData(options: options)
-    }
     
     // MARK: - SwipeMenuViewDelegate
     override func swipeMenuView(_ swipeMenuView: SwipeMenuView, viewWillSetupAt currentIndex: Int) {
@@ -78,8 +42,7 @@ class CategoriesUIViewController: SwipeMenuViewController, NetworkProtocol {
         //print("did change from section\(fromIndex + 1)  to section\(toIndex + 1)")
     }
     
-    
-    // MARK - SwipeMenuViewDataSource
+    // MARK: - SwipeMenuViewDelegate
     override func numberOfPages(in swipeMenuView: SwipeMenuView) -> Int {
         return dataCount
     }
@@ -95,3 +58,53 @@ class CategoriesUIViewController: SwipeMenuViewController, NetworkProtocol {
     }
 }
 
+// MARK: - Override
+extension CategoriesUIViewController {
+    
+    override func viewDidLoad() {
+        arraySwipe.forEach { data in
+            let vc = ContentTableViewController()
+            arrayControllers[data] = vc
+            vc.title = data
+            vc.parentController = self
+            self.addChild(vc)
+        }
+        super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NetworkManager.shared.getUpdateCategoryLists(listener: self)
+        self.tabBarController?.tabBar.isHidden = false
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if firstOpening {
+            reload()
+            firstOpening = false
+        }
+    }
+}
+
+// MARK: - NetworkProtocol
+extension CategoriesUIViewController: NetworkProtocol {
+    
+    func successRequest(result: [Article], category: String) {
+        let vc = arrayControllers[category]
+        vc?.setNewListCategoryAndUpdateUI(articleArray: result)
+    }
+    
+    func errorRequest(errorMessage: String) {
+        
+    }
+}
+
+// MARK: - Private
+private extension CategoriesUIViewController {
+    
+    func reload() {
+        swipeMenuView.reloadData(options: options)
+    }
+}

@@ -10,45 +10,41 @@ import UIKit
 import WebKit
 import RealmSwift
 
-class ArticleViewController: UIViewController, WKNavigationDelegate {
-    
-    private let realm = try! Realm()
-    private var bookmarksArray : Results<Article>?
-    private var addToBookmarksButton: UIBarButtonItem?
-    private var goToSourceButton: UIBarButtonItem?
+class ArticleViewController: UIViewController {
     
     var article: Article?
 
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var progressView: UIProgressView!
 
+    private let realm = try! Realm()
+    private var bookmarksArray : Results<Article>?
+    private var addToBookmarksButton: UIBarButtonItem?
+    private var goToSourceButton: UIBarButtonItem?
+}
+
+// MARK: - Override
+extension ArticleViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+        load()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         addToBookmarksButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.bookmarks, target: self, action: #selector(ArticleViewController.clickAddToBookmarksButton(_:)))
         
         goToSourceButton = UIBarButtonItem(title: "Source", style: .plain, target: self, action:
             #selector(ArticleViewController.showAlertMessageGoToTheSource(_:)))
         
-        //self.navigationItem.rightBarButtonItem = addToBookmarksButton
-        self.navigationItem.rightBarButtonItems = [addToBookmarksButton, goToSourceButton] as? [UIBarButtonItem]
+        navigationItem.rightBarButtonItems = [addToBookmarksButton, goToSourceButton] as? [UIBarButtonItem]
         checkArticleInBookmarks(article: article)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        progressView.translatesAutoresizingMaskIntoConstraints = false
-        progressView.setProgress(0.0, animated: true)
-        self.tabBarController?.tabBar.isHidden = true
-        
-        if let url = URL(string: (article?.articleUrl)!) {
-            webView.load(URLRequest(url: url))
-            webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
-            webView.allowsBackForwardNavigationGestures = true
-            webView.configuration.allowsInlineMediaPlayback = false
-        }
-        load()
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
@@ -61,8 +57,25 @@ class ArticleViewController: UIViewController, WKNavigationDelegate {
             progressView!.progress = Float(webView.estimatedProgress)
         }
     }
+}
+
+// MARK: - Private
+private extension ArticleViewController {
     
-    @objc private func clickAddToBookmarksButton(_ sender: UIBarButtonItem) {
+    func setupView() {
+        
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.setProgress(0.0, animated: true)
+        tabBarController?.tabBar.isHidden = true
+        
+        guard let url = URL(string: (article?.articleUrl)!) else { return }
+        webView.load(URLRequest(url: url))
+        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+        webView.allowsBackForwardNavigationGestures = true
+        webView.configuration.allowsInlineMediaPlayback = false
+    }
+    
+    @objc func clickAddToBookmarksButton(_ sender: UIBarButtonItem) {
         do {
             try realm.write {
                 realm.add(article!)
@@ -73,13 +86,12 @@ class ArticleViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
-    private func goToSource() {
-        if let url = URL(string: article!.articleUrl) {
-            UIApplication.shared.open(url, options: [:])
-        }
+    func goToSource() {
+        guard let url = URL(string: article!.articleUrl) else { return }
+        UIApplication.shared.open(url, options: [:])
     }
     
-    @objc private func showAlertMessageGoToTheSource(_ sender: UIBarButtonItem) {
+    @objc func showAlertMessageGoToTheSource(_ sender: UIBarButtonItem) {
         let alert = UIAlertController(title: "Open in source?", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
             self.goToSource()
@@ -88,7 +100,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate {
         self.present(alert, animated: true)
     }
     
-    private func checkArticleInBookmarks(article: Article?) {
+    func checkArticleInBookmarks(article: Article?) {
         let bookmarksArray : Results<Article> = realm.objects(Article.self)
         for bookmark in bookmarksArray {
             if bookmark.articleUrl == article?.articleUrl {
@@ -98,7 +110,9 @@ class ArticleViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
-    private func load() {
+    func load() {
         bookmarksArray = realm.objects(Article.self)
     }
 }
+
+extension ArticleViewController: WKNavigationDelegate { }

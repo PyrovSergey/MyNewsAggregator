@@ -10,26 +10,40 @@ import UIKit
 import RealmSwift
 import SwipeCellKit
 
-class BookmarksViewController: UIViewController, SwipeTableViewCellDelegate, UITableViewDataSource, UITableViewDelegate {
+
+class BookmarksViewController: UIViewController {
     
-    private let realm = try! Realm()
-    private var bookmarksArray : Results<Article>?
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var labelBookmarksIsEmpty: UILabel!
     
+    private let realm = try! Realm()
+    private var bookmarksArray : Results<Article>?
+}
+
+// MARK: - Override
+extension BookmarksViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.separatorStyle = .none
-        tableView.register(UINib(nibName: "SwipeCustomNewsCell", bundle: nil), forCellReuseIdentifier: "swipeCell")
+        setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
         load()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destintionVC = segue.destination as! ArticleViewController
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destintionVC.article = bookmarksArray![indexPath.row]
+        }
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension BookmarksViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "swipeCell", for: indexPath) as! SwipeCustomNewsCell
@@ -49,7 +63,19 @@ class BookmarksViewController: UIViewController, SwipeTableViewCellDelegate, UIT
         labelBookmarksIsEmpty.isHidden = (bookmarksArray?.count)! != 0
         return (bookmarksArray?.count)!
     }
+}
+
+// MARK: - UITableViewDelegate
+extension BookmarksViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("didSelectRowAt --> \(indexPath.row)")
+        performSegue(withIdentifier: "goToArticleViewFromBookmarks", sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension BookmarksViewController: SwipeTableViewCellDelegate {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
@@ -67,27 +93,24 @@ class BookmarksViewController: UIViewController, SwipeTableViewCellDelegate, UIT
         options.expansionStyle = .destructive
         return options
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("didSelectRowAt --> \(indexPath.row)")
-        performSegue(withIdentifier: "goToArticleViewFromBookmarks", sender: self)
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
+}
 
+// MARK: - Private
+private extension BookmarksViewController {
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destintionVC = segue.destination as! ArticleViewController
-        if let indexPath = tableView.indexPathForSelectedRow {
-            destintionVC.article = bookmarksArray![indexPath.row]
-        }
+    func setupView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.separatorStyle = .none
+        tableView.register(UINib(nibName: "SwipeCustomNewsCell", bundle: nil), forCellReuseIdentifier: "swipeCell")
     }
     
-    private func load() {
+    func load() {
         bookmarksArray = realm.objects(Article.self)
         tableView.reloadData()
     }
     
-    private func updateModel(at indexPath: IndexPath) {
+    func updateModel(at indexPath: IndexPath) {
         if let bookmark = self.bookmarksArray?[indexPath.row] {
             do {
                 try self.realm.write {

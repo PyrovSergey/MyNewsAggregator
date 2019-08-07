@@ -10,7 +10,9 @@ import Foundation
 import Reachability
 
 class ConnectionManager: NSObject {
+    
     var reachability: Reachability!
+    
     static let sharedInstance: ConnectionManager = {
         return ConnectionManager()
     }()

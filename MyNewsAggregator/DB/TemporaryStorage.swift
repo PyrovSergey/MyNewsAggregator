@@ -10,6 +10,8 @@ import Foundation
 
 class TemporaryStorage {
     
+    static let shared = TemporaryStorage()
+    
     private var generalCategory = [Article]()
     private var entertainmentCategory = [Article]()
     private var sportsCategory = [Article]()
@@ -18,11 +20,11 @@ class TemporaryStorage {
     private var businessCategory = [Article]()
     private var mainNewsCategory = [Article]()
     
-    static let instace = TemporaryStorage()
-    
-    private init() {
-        
-    }
+    private init() {}
+}
+
+// MARK: - Public Interface
+extension TemporaryStorage {
     
     func getCategoryList(categoryName: String) -> [Article] {
         switch categoryName {

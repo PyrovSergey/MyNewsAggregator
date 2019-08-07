@@ -14,20 +14,23 @@ import DateToolsSwift
 
 class NetworkManager {
     
+    static let shared = NetworkManager()
+    
     private let swipeCategory = ["General", "Entertainment", "Sport", "Technology", "Health", "Business"]
     private let baseUrlTopHeadlinesAndCategory: String = "https://newsapi.org/v2/top-headlines"
     private let baseUrlForRequest: String = "https://newsapi.org/v2/everything"
     private let apiKey: String = "1d48cf2bd8034be59054969db665e62e"
     private let pageSize: String = "100"
     
-    static let instace = NetworkManager()
-    
-    
     private var temporaryStorage: TemporaryStorage
     
     private init() {
-        temporaryStorage = TemporaryStorage.instace
+        temporaryStorage = TemporaryStorage.shared
     }
+}
+
+// MARK: - Network Request
+extension NetworkManager {
     
     func getTopHeadLinesNews(listener: NetworkProtocol) {
         let params: [String : String] = [
@@ -60,8 +63,12 @@ class NetworkManager {
             getRequest(params, listener, category)
         }
     }
+}
+
+// MARK: - Private
+private extension NetworkManager {
     
-    private func getRequest(_ params: [String : String], _ listener: NetworkProtocol, _ category: String) {
+    func getRequest(_ params: [String : String], _ listener: NetworkProtocol, _ category: String) {
         var url: String?
         if params.count == 3  {
             url = baseUrlTopHeadlinesAndCategory
@@ -79,7 +86,7 @@ class NetworkManager {
         }
     }
     
-    private func parsingJsonResult(_ responseJSON: JSON, _ listener: NetworkProtocol, _ category: String) {
+    func parsingJsonResult(_ responseJSON: JSON, _ listener: NetworkProtocol, _ category: String) {
         var resultArrayArticles = [Article]()
         if let responseArticleArray = responseJSON["articles"].array {
             if !responseArticleArray.isEmpty {
@@ -104,15 +111,15 @@ class NetworkManager {
                 }
             }
         }
-        TemporaryStorage.instace.setCategoryList(result: resultArrayArticles, categoryName: category)
+        TemporaryStorage.shared.setCategoryList(result: resultArrayArticles, categoryName: category)
         listener.successRequest(result: resultArrayArticles, category: category)
     }
     
-    private func getCurrentLanguage() -> String {
+    func getCurrentLanguage() -> String {
         return String(Locale.preferredLanguages[0].lowercased().dropLast(3))
     }
     
-    private func getCurrentCountry() -> String {
+    func getCurrentCountry() -> String {
         print("LANGUAGE ------->>>> \(Locale.preferredLanguages[0].lowercased().dropLast(3))")
         var defaultCountry: String = "us"
         let arrayCountry = ["ae", "ar", "at", "au", "be", "bg", "br", "ca", "ch", "cn", "co", "cu", "cz", "de", "eg", "fr", "gb", "gr", "hk", "hu", "id", "ie", "il", "in", "it", "jp", "kr", "lt", "lv", "ma", "mx", "my", "ng", "nl", "no", "nz", "ph", "pl", "pt", "ro", "rs", "ru", "sa", "se", "sg", "si", "sk", "th", "tr", "tw", "ua", "us", "ve", "za"]
@@ -127,7 +134,7 @@ class NetworkManager {
     
     
     
-    private func getDateFromApi(date: String) -> Date {
+    func getDateFromApi(date: String) -> Date {
         var parsingString = date
         parsingString.removeLast()
         let parsingDateAndTime = parsingString.components(separatedBy: "T")
