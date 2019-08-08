@@ -95,7 +95,7 @@
             </objects>
             <point key="canvasLocation" x="3479.7101449275365" y="357.88043478260875"/>
         </scene>
-        <!--Bookmarks View Controller-->
+        <!--Bookmarks-->
         <scene sceneID="a5y-Ve-dnJ">
             <objects>
                 <viewController id="FKg-oR-NVF" customClass="BookmarksViewController" customModule="MyNewsAggregator" customModuleProvider="target" sceneMemberID="viewController">
@@ -138,7 +138,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zOX-Xc-VMR"/>
                     </view>
-                    <navigationItem key="navigationItem" id="bfH-51-8Fv"/>
+                    <navigationItem key="navigationItem" title="Bookmarks" id="bfH-51-8Fv"/>
                     <connections>
                         <outlet property="labelBookmarksIsEmpty" destination="HDZ-gy-EMj" id="daT-Sx-Qpw"/>
                         <outlet property="tableView" destination="9um-Iv-RhC" id="UGP-0T-NKE"/>
@@ -247,6 +247,6 @@
         <image name="news" width="29" height="29"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tgz-90-sdo"/>
+        <segue reference="GGD-qO-GY2"/>
     </inferredMetricsTieBreakers>
 </document>

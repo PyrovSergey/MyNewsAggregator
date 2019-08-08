@@ -3,17 +3,19 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		8D8C43FBCEA1CA6011237618 /* Pods_MyNewsAggregator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 399F8F4076E7192BF8DCD560 /* Pods_MyNewsAggregator.framework */; };
+		92FDF48A22FC1885000685AD /* Countries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92FDF48922FC1885000685AD /* Countries.plist */; };
+		92FDF48C22FC1C5B000685AD /* Categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92FDF48B22FC1C5B000685AD /* Categories.plist */; };
 		95781512225F8470004DA308 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781511225F8470004DA308 /* Article.swift */; };
 		95781517225F8554004DA308 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95781516225F8553004DA308 /* WebKit.framework */; };
 		95781519225F85A7004DA308 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781518225F85A7004DA308 /* ConnectionManager.swift */; };
 		9578151C225F85EB004DA308 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578151B225F85EB004DA308 /* NetworkManager.swift */; };
 		9578151E225F8610004DA308 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578151D225F8610004DA308 /* NetworkProtocol.swift */; };
-		95781520225F8644004DA308 /* TemporaryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578151F225F8644004DA308 /* TemporaryStorage.swift */; };
+		95781520225F8644004DA308 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578151F225F8644004DA308 /* Storage.swift */; };
 		95781523225F86A7004DA308 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781522225F86A7004DA308 /* NewsTableViewController.swift */; };
 		95781525225F874B004DA308 /* ContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781524225F874B004DA308 /* ContentTableViewController.swift */; };
 		95781527225F877A004DA308 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781526225F877A004DA308 /* BookmarksViewController.swift */; };
@@ -33,12 +35,14 @@
 /* Begin PBXFileReference section */
 		399F8F4076E7192BF8DCD560 /* Pods_MyNewsAggregator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyNewsAggregator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5152C27AC18DC253FA047BDF /* Pods-MyNewsAggregator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyNewsAggregator.release.xcconfig"; path = "Target Support Files/Pods-MyNewsAggregator/Pods-MyNewsAggregator.release.xcconfig"; sourceTree = "<group>"; };
+		92FDF48922FC1885000685AD /* Countries.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Countries.plist; sourceTree = "<group>"; };
+		92FDF48B22FC1C5B000685AD /* Categories.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Categories.plist; sourceTree = "<group>"; };
 		95781511225F8470004DA308 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		95781516225F8553004DA308 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		95781518225F85A7004DA308 /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		9578151B225F85EB004DA308 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9578151D225F8610004DA308 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
-		9578151F225F8644004DA308 /* TemporaryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryStorage.swift; sourceTree = "<group>"; };
+		9578151F225F8644004DA308 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		95781522225F86A7004DA308 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		95781524225F874B004DA308 /* ContentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewController.swift; sourceTree = "<group>"; };
 		95781526225F877A004DA308 /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				95781511225F8470004DA308 /* Article.swift */,
+				92FDF48922FC1885000685AD /* Countries.plist */,
+				92FDF48B22FC1C5B000685AD /* Categories.plist */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -132,7 +138,7 @@
 		95781521225F8654004DA308 /* DB */ = {
 			isa = PBXGroup;
 			children = (
-				9578151F225F8644004DA308 /* TemporaryStorage.swift */,
+				9578151F225F8644004DA308 /* Storage.swift */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -259,6 +265,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				95E1E07B225F756C005591FE /* LaunchScreen.storyboard in Resources */,
+				92FDF48A22FC1885000685AD /* Countries.plist in Resources */,
+				92FDF48C22FC1C5B000685AD /* Categories.plist in Resources */,
 				95A2FCD2225F9DF90007FAFB /* SwipeCustomNewsCell.xib in Resources */,
 				95E1E078225F756C005591FE /* Assets.xcassets in Resources */,
 				95A2FCD0225F9D7D0007FAFB /* NewsCell.xib in Resources */,
@@ -318,7 +326,7 @@
 				9578151C225F85EB004DA308 /* NetworkManager.swift in Sources */,
 				95781529225F879A004DA308 /* ArticleViewController.swift in Sources */,
 				9578152E225F8CD0004DA308 /* SwipeCustomNewsCell.swift in Sources */,
-				95781520225F8644004DA308 /* TemporaryStorage.swift in Sources */,
+				95781520225F8644004DA308 /* Storage.swift in Sources */,
 				95781519225F85A7004DA308 /* ConnectionManager.swift in Sources */,
 				95781512225F8470004DA308 /* Article.swift in Sources */,
 				95781525225F874B004DA308 /* ContentTableViewController.swift in Sources */,

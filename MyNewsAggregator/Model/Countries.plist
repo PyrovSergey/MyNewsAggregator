@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+    <string>ae</string>
+    <string>ar</string>
+    <string>at</string>
+    <string>au</string>
+    <string>be</string>
+    <string>bg</string>
+    <string>br</string>
+    <string>ca</string>
+    <string>ch</string>
+    <string>cn</string>
+    <string>co</string>
+    <string>cu</string>
+    <string>cz</string>
+    <string>de</string>
+    <string>eg</string>
+    <string>fr</string>
+    <string>gb</string>
+    <string>gr</string>
+    <string>hk</string>
+    <string>hu</string>
+    <string>id</string>
+    <string>ie</string>
+    <string>il</string>
+    <string>in</string>
+    <string>it</string>
+    <string>jp</string>
+    <string>kr</string>
+    <string>lt</string>
+    <string>lv</string>
+    <string>ma</string>
+    <string>mx</string>
+    <string>my</string>
+    <string>ng</string>
+    <string>nl</string>
+    <string>no</string>
+    <string>nz</string>
+    <string>ph</string>
+    <string>pl</string>
+    <string>pt</string>
+    <string>ro</string>
+    <string>rs</string>
+    <string>ru</string>
+    <string>sa</string>
+    <string>se</string>
+    <string>sg</string>
+    <string>si</string>
+    <string>sk</string>
+    <string>th</string>
+    <string>tr</string>
+    <string>tw</string>
+    <string>ua</string>
+    <string>us</string>
+    <string>ve</string>
+    <string>za</string>
+</array>
+</plist>

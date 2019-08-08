@@ -32,17 +32,6 @@ extension ArticleViewController {
         load()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        addToBookmarksButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.bookmarks, target: self, action: #selector(ArticleViewController.clickAddToBookmarksButton(_:)))
-        
-        goToSourceButton = UIBarButtonItem(title: "Source", style: .plain, target: self, action:
-            #selector(ArticleViewController.showAlertMessageGoToTheSource(_:)))
-        
-        navigationItem.rightBarButtonItems = [addToBookmarksButton, goToSourceButton] as? [UIBarButtonItem]
-        checkArticleInBookmarks(article: article)
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -73,6 +62,14 @@ private extension ArticleViewController {
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
         webView.allowsBackForwardNavigationGestures = true
         webView.configuration.allowsInlineMediaPlayback = false
+        
+        addToBookmarksButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.bookmarks, target: self, action: #selector(ArticleViewController.clickAddToBookmarksButton))
+        
+        goToSourceButton = UIBarButtonItem(title: "Source", style: .plain, target: self, action:
+            #selector(ArticleViewController.showAlertMessageGoToTheSource))
+        
+        navigationItem.rightBarButtonItems = [addToBookmarksButton, goToSourceButton] as? [UIBarButtonItem]
+        checkArticleInBookmarks(article: article)
     }
     
     @objc func clickAddToBookmarksButton(_ sender: UIBarButtonItem) {
@@ -97,7 +94,7 @@ private extension ArticleViewController {
             self.goToSource()
         }))
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-        self.present(alert, animated: true)
+        present(alert, animated: true)
     }
     
     func checkArticleInBookmarks(article: Article?) {

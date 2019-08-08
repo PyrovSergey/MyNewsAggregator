@@ -8,9 +8,9 @@
 
 import Foundation
 
-class TemporaryStorage {
+class Storage {
     
-    static let shared = TemporaryStorage()
+    static let shared = Storage()
     
     private var generalCategory = [Article]()
     private var entertainmentCategory = [Article]()
@@ -24,7 +24,7 @@ class TemporaryStorage {
 }
 
 // MARK: - Public Interface
-extension TemporaryStorage {
+extension Storage {
     
     func getCategoryList(categoryName: String) -> [Article] {
         switch categoryName {
@@ -62,5 +62,21 @@ extension TemporaryStorage {
         default:
             mainNewsCategory = result
         }
+    }
+    
+    func getCountries() -> [String] {
+        
+        let url = Bundle.main.url(forResource: "Countries", withExtension: "plist")!
+        let categoriesData = try! Data(contentsOf: url)
+        let categoriesList = try! PropertyListSerialization.propertyList(from: categoriesData, options: [], format: nil) as! [String]
+        return categoriesList
+    }
+    
+    func getCategories() -> [String] {
+        
+        let url = Bundle.main.url(forResource: "Categories", withExtension: "plist")!
+        let categoriesData = try! Data(contentsOf: url)
+        let categoriesList = try! PropertyListSerialization.propertyList(from: categoriesData, options: [], format: nil) as! [String]
+        return categoriesList
     }
 }

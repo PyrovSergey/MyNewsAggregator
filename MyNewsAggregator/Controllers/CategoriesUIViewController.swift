@@ -14,7 +14,7 @@ import SwiftyJSON
 
 class CategoriesUIViewController: SwipeMenuViewController {
     
-    private let arraySwipe = ["General", "Entertainment", "Sport", "Technology", "Health", "Business"]
+    private lazy var swipeCategory = Storage.shared.getCategories()
     private var arrayControllers = [String : ContentTableViewController]()
     
     private var options = SwipeMenuViewOptions()
@@ -62,7 +62,7 @@ class CategoriesUIViewController: SwipeMenuViewController {
 extension CategoriesUIViewController {
     
     override func viewDidLoad() {
-        arraySwipe.forEach { data in
+        swipeCategory.forEach { data in
             let vc = ContentTableViewController()
             arrayControllers[data] = vc
             vc.title = data

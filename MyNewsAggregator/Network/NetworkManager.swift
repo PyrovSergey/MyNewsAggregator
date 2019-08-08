@@ -16,16 +16,16 @@ class NetworkManager {
     
     static let shared = NetworkManager()
     
-    private let swipeCategory = ["General", "Entertainment", "Sport", "Technology", "Health", "Business"]
+    private lazy var swipeCategory = Storage.shared.getCategories()
     private let baseUrlTopHeadlinesAndCategory: String = "https://newsapi.org/v2/top-headlines"
     private let baseUrlForRequest: String = "https://newsapi.org/v2/everything"
     private let apiKey: String = "1d48cf2bd8034be59054969db665e62e"
     private let pageSize: String = "100"
     
-    private var temporaryStorage: TemporaryStorage
+    private var temporaryStorage: Storage
     
     private init() {
-        temporaryStorage = TemporaryStorage.shared
+        temporaryStorage = Storage.shared
     }
 }
 
@@ -111,7 +111,7 @@ private extension NetworkManager {
                 }
             }
         }
-        TemporaryStorage.shared.setCategoryList(result: resultArrayArticles, categoryName: category)
+        Storage.shared.setCategoryList(result: resultArrayArticles, categoryName: category)
         listener.successRequest(result: resultArrayArticles, category: category)
     }
     
@@ -122,7 +122,7 @@ private extension NetworkManager {
     func getCurrentCountry() -> String {
         print("LANGUAGE ------->>>> \(Locale.preferredLanguages[0].lowercased().dropLast(3))")
         var defaultCountry: String = "us"
-        let arrayCountry = ["ae", "ar", "at", "au", "be", "bg", "br", "ca", "ch", "cn", "co", "cu", "cz", "de", "eg", "fr", "gb", "gr", "hk", "hu", "id", "ie", "il", "in", "it", "jp", "kr", "lt", "lv", "ma", "mx", "my", "ng", "nl", "no", "nz", "ph", "pl", "pt", "ro", "rs", "ru", "sa", "se", "sg", "si", "sk", "th", "tr", "tw", "ua", "us", "ve", "za"]
+        let arrayCountry = Storage.shared.getCountries()
         if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
             if arrayCountry.contains(countryCode.lowercased()) {
                 defaultCountry = countryCode.lowercased()
@@ -131,8 +131,6 @@ private extension NetworkManager {
         print("COUNTRY  ------->>>> \(defaultCountry)")
         return defaultCountry
     }
-    
-    
     
     func getDateFromApi(date: String) -> Date {
         var parsingString = date

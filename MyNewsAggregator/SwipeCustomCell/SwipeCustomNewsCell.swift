@@ -16,5 +16,4 @@ class SwipeCustomNewsCell: SwipeTableViewCell  {
     @IBOutlet weak var articleTitleLabel: UILabel!
     @IBOutlet weak var articlePublicationTimeLabel: UILabel!
     @IBOutlet weak var articleImage: UIImageView!
-    
 }

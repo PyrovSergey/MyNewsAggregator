@@ -30,15 +30,14 @@ extension BookmarksViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = false
+        tabBarController?.tabBar.isHidden = false
         load()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destintionVC = segue.destination as! ArticleViewController
-        if let indexPath = tableView.indexPathForSelectedRow {
-            destintionVC.article = bookmarksArray![indexPath.row]
-        }
+        guard let indexPath = tableView.indexPathForSelectedRow else { return }
+        destintionVC.article = bookmarksArray![indexPath.row]
     }
 }
 

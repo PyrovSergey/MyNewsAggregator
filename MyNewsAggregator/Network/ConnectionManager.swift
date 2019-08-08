@@ -23,7 +23,7 @@ class ConnectionManager: NSObject {
         // Register an observer for the network status
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(networkStatusChanged(_:)),
+            selector: #selector(networkStatusChanged),
             name: .reachabilityChanged,
             object: reachability
         )
