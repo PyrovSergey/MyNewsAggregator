@@ -13,8 +13,8 @@ import GearRefreshControl
 
 class NewsTableViewController: UITableViewController {
 
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var newsTableView: UITableView!
+    @IBOutlet private weak var searchBar: UISearchBar!
+    @IBOutlet private weak var newsTableView: UITableView!
     
     private let connection = ConnectionManager.sharedInstance
     private var emptyLabel: UILabel!
@@ -23,6 +23,25 @@ class NewsTableViewController: UITableViewController {
     
     private var newsArray = [Article]()
     private let spiner = UIActivityIndicatorView(style: .gray)
+}
+
+// MARK: - Override
+extension NewsTableViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkCurrentConnection()
+    }
 }
 
 // MARK: - UISearchBarDelegate
@@ -51,32 +70,6 @@ extension NewsTableViewController: UISearchBarDelegate {
     }
 }
 
-// MARK: - Override
-extension NewsTableViewController {
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tabBarController?.tabBar.isHidden = false
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        checkCurrentConnection()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destintionVC = segue.destination as! ArticleViewController
-        
-        guard let indexPath = tableView.indexPathForSelectedRow else { return }
-        destintionVC.article = newsArray[indexPath.row].copy() as? Article
-    }
-}
-
 // MARK: - UITableViewDataSource
 extension NewsTableViewController {
     
@@ -85,7 +78,7 @@ extension NewsTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as! CustomNewsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as! NewsCell
         let currentArticle = newsArray[indexPath.row]
         cell.sourceLabel.text = currentArticle.sourceTitle
         cell.sourceImage.sd_setImage(with: URL(string: currentArticle.sourceImageUrl), placeholderImage: UIImage(named: "news-placeholder.jpg"))
@@ -117,9 +110,9 @@ extension NewsTableViewController: NetworkProtocol {
 extension NewsTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "goToArticleViewFromNews", sender: self)
-        newsTableView.deselectRow(at: indexPath, animated: true)
-        newsTableView.endEditing(true)
+        let viewController = ArticleViewController.instantinateFromStoryboard()
+        viewController.article = newsArray[indexPath.row].copy() as? Article
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
@@ -135,7 +128,8 @@ extension NewsTableViewController {
 private extension NewsTableViewController {
     
     func setupView() {
-        
+        title = "News"
+
         gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
         gearRefreshControl.addTarget(self, action: #selector(NewsTableViewController.refresh), for: UIControl.Event.valueChanged)
         refreshControl = gearRefreshControl
@@ -212,3 +206,6 @@ private extension NewsTableViewController {
         present(dialogMessage, animated: true, completion: nil)
     }
 }
+
+// MARK: - StoryboardInstantinable
+extension NewsTableViewController: StoryboardInstantinable {}

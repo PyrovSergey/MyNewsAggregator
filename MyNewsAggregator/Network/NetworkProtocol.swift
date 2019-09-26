@@ -11,6 +11,5 @@ import Foundation
 protocol NetworkProtocol {
     
     func successRequest(result: [Article], category: String)
-    
     func errorRequest(errorMessage: String)
 }

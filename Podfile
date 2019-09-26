@@ -16,5 +16,6 @@ pod 'DateToolsSwift'
 pod 'RealmSwift'
 pod 'SwipeCellKit'
 pod 'GearRefreshControl'
+pod 'PromiseKit'
 
 end

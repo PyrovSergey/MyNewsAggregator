@@ -13,8 +13,8 @@ import SwipeCellKit
 
 class BookmarksViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var labelBookmarksIsEmpty: UILabel!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var labelBookmarksIsEmpty: UILabel!
     
     private let realm = try! Realm()
     private var bookmarksArray : Results<Article>?
@@ -33,19 +33,13 @@ extension BookmarksViewController {
         tabBarController?.tabBar.isHidden = false
         load()
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destintionVC = segue.destination as! ArticleViewController
-        guard let indexPath = tableView.indexPathForSelectedRow else { return }
-        destintionVC.article = bookmarksArray![indexPath.row]
-    }
 }
 
 // MARK: - UITableViewDataSource
 extension BookmarksViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "swipeCell", for: indexPath) as! SwipeCustomNewsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as! BookmarkCell
         if (bookmarksArray?.count)! > 0 {
             cell.delegate = self
             let currentArticle: Article = bookmarksArray![indexPath.row]
@@ -68,9 +62,10 @@ extension BookmarksViewController: UITableViewDataSource {
 extension BookmarksViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("didSelectRowAt --> \(indexPath.row)")
-        performSegue(withIdentifier: "goToArticleViewFromBookmarks", sender: self)
-        tableView.deselectRow(at: indexPath, animated: true)
+        let viewController = ArticleViewController.instantinateFromStoryboard()
+        guard let article = bookmarksArray?[indexPath.row].copy() as? Article else { return }
+        viewController.article = article
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
@@ -98,10 +93,11 @@ extension BookmarksViewController: SwipeTableViewCellDelegate {
 private extension BookmarksViewController {
     
     func setupView() {
+        title = "Bookmarks"
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
-        tableView.register(UINib(nibName: "SwipeCustomNewsCell", bundle: nil), forCellReuseIdentifier: "swipeCell")
+        tableView.register(UINib(nibName: "BookmarkCell", bundle: nil), forCellReuseIdentifier: "bookmarkCell")
     }
     
     func load() {
@@ -121,3 +117,6 @@ private extension BookmarksViewController {
         }
     }
 }
+
+// MARK: - StoryboardInstantinable
+extension BookmarksViewController: StoryboardInstantinable {}

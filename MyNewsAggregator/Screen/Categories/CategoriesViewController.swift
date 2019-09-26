@@ -12,7 +12,7 @@ import Alamofire
 import SwiftyJSON
 
 
-class CategoriesUIViewController: SwipeMenuViewController {
+class CategoriesViewController: SwipeMenuViewController {
     
     private lazy var swipeCategory = Storage.shared.getCategories()
     private var arrayControllers = [String : ContentTableViewController]()
@@ -59,7 +59,7 @@ class CategoriesUIViewController: SwipeMenuViewController {
 }
 
 // MARK: - Override
-extension CategoriesUIViewController {
+extension CategoriesViewController {
     
     override func viewDidLoad() {
         swipeCategory.forEach { data in
@@ -70,6 +70,7 @@ extension CategoriesUIViewController {
             self.addChild(vc)
         }
         super.viewDidLoad()
+        setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,7 +90,7 @@ extension CategoriesUIViewController {
 }
 
 // MARK: - NetworkProtocol
-extension CategoriesUIViewController: NetworkProtocol {
+extension CategoriesViewController: NetworkProtocol {
     
     func successRequest(result: [Article], category: String) {
         let vc = arrayControllers[category]
@@ -102,9 +103,16 @@ extension CategoriesUIViewController: NetworkProtocol {
 }
 
 // MARK: - Private
-private extension CategoriesUIViewController {
+private extension CategoriesViewController {
+    
+    func setupView() {
+        title = "Categories"
+    }
     
     func reload() {
         swipeMenuView.reloadData(options: options)
     }
 }
+
+// MARK: - StoryboardInstantinable
+extension CategoriesViewController: StoryboardInstantinable {}

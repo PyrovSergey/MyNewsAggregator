@@ -1,14 +1,15 @@
 //
-//  CustomNewsCell.swift
+//  SwipeCustomNewsCell.swift
 //  MyNewsAggregator
 //
 //  Created by Sergey on 11/04/2019.
 //  Copyright © 2019 PyrovSergey. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import SwipeCellKit
 
-class CustomNewsCell: UITableViewCell {
+class BookmarkCell: SwipeTableViewCell  {
     
     @IBOutlet weak var sourceImage: UIImageView!
     @IBOutlet weak var sourceLabel: UILabel!

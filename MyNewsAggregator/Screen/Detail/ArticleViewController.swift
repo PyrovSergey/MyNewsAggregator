@@ -14,8 +14,8 @@ class ArticleViewController: UIViewController {
     
     var article: Article?
 
-    @IBOutlet weak var webView: WKWebView!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet private weak var webView: WKWebView!
+    @IBOutlet private weak var progressView: UIProgressView!
 
     private let realm = try! Realm()
     private var bookmarksArray : Results<Article>?
@@ -113,3 +113,5 @@ private extension ArticleViewController {
 }
 
 extension ArticleViewController: WKNavigationDelegate { }
+
+extension ArticleViewController: StoryboardInstantinable { }

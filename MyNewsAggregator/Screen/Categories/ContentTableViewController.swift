@@ -18,7 +18,7 @@ class ContentTableViewController: UITableViewController {
     private var emptyLabel: UILabel!
     private var gearRefreshControl: GearRefreshControl!
     
-    var parentController: CategoriesUIViewController?
+    var parentController: CategoriesViewController?
 }
 
 // MARK: - Override
@@ -51,7 +51,7 @@ extension ContentTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as! CustomNewsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as! NewsCell
         let currentArticle = newsArray[indexPath.row]
         cell.sourceLabel.text = currentArticle.sourceTitle
         cell.sourceImage.sd_setImage(with: URL(string: currentArticle.sourceImageUrl), placeholderImage: UIImage(named: "news-placeholder.jpg"))
@@ -66,11 +66,9 @@ extension ContentTableViewController {
 extension ContentTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let storyboard = self.parent?.storyboard {
-            let articleViewController = storyboard.instantiateViewController(withIdentifier: "ArticleViewController") as! ArticleViewController
-            articleViewController.article = newsArray[indexPath.row].copy() as? Article
-            navigationController!.pushViewController(articleViewController, animated: true)
-        }
+        let viewController = ArticleViewController.instantinateFromStoryboard()
+        viewController.article = newsArray[indexPath.row].copy() as? Article
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
@@ -113,5 +111,4 @@ private extension ContentTableViewController {
             NetworkManager.shared.getUpdateCategoryLists(listener: parent)
         }
     }
-    
 }

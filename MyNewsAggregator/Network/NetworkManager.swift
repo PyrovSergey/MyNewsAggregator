@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 import DateToolsSwift
+import PromiseKit
 
 
 class NetworkManager {
