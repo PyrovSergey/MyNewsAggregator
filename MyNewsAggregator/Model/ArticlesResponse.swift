@@ -25,7 +25,6 @@ struct ArticlesResponse: Mappable {
 private extension ArticlesResponse {
     
     enum Key: String {
-        
         case totalCount = "totalResults"
         case articles = "articles"
     }

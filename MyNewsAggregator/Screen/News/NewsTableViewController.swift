@@ -15,6 +15,7 @@ class NewsTableViewController: UITableViewController {
 
     @IBOutlet private weak var searchBar: UISearchBar!
     @IBOutlet private weak var newsTableView: UITableView!
+    @IBOutlet private var viewModel: NewsViewModel!
     
     private var emptyLabel: UILabel!
     
