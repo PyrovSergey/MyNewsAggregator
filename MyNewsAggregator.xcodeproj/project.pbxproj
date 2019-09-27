@@ -177,6 +177,9 @@
 			children = (
 				95CE4F1A233CD53B00C26EBD /* Coordinator.swift */,
 				95CE4F1D233CD98A00C26EBD /* AppCoordinator.swift */,
+				95CE4F28233CDDE500C26EBD /* NewsCoordinator.swift */,
+				95CE4F2C233CE71C00C26EBD /* CategoriesCoordinator.swift */,
+				95CE4F2E233CE84000C26EBD /* BookmarksCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -184,7 +187,6 @@
 		95CE4F1F233CDAA400C26EBD /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				95CE4F2C233CE71C00C26EBD /* CategoriesCoordinator.swift */,
 				95E1E06F225F756B005591FE /* CategoriesViewController.swift */,
 				95781524225F874B004DA308 /* ContentTableViewController.swift */,
 				95CE4F32233CF07400C26EBD /* Categories.storyboard */,
@@ -195,7 +197,6 @@
 		95CE4F20233CDAD200C26EBD /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
-				95CE4F2E233CE84000C26EBD /* BookmarksCoordinator.swift */,
 				9578152F225F8D6F004DA308 /* Cell */,
 				95781526225F877A004DA308 /* BookmarksViewController.swift */,
 				95CE4F34233CF14600C26EBD /* Bookmarks.storyboard */,
@@ -215,7 +216,6 @@
 		95CE4F22233CDB0E00C26EBD /* News */ = {
 			isa = PBXGroup;
 			children = (
-				95CE4F28233CDDE500C26EBD /* NewsCoordinator.swift */,
 				9578152C225F8C7E004DA308 /* Cell */,
 				95781522225F86A7004DA308 /* NewsTableViewController.swift */,
 				95CE4F30233CEDAD00C26EBD /* NewsTable.storyboard */,
