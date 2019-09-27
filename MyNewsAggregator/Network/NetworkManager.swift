@@ -6,7 +6,6 @@
 //  Copyright © 2019 PyrovSergey. All rights reserved.
 //
 
-import Foundation
 import Alamofire
 import SwiftyJSON
 import DateToolsSwift
@@ -35,7 +34,7 @@ extension NetworkManager {
     
     func getTopHeadLinesNews(listener: NetworkProtocol) {
         let params: [String : String] = [
-            "country" : getCurrentCountry(),
+            "country" : Utils.getCurrentCountry(),
             "pageSize" : pageSize,
             "apiKey" : apiKey
         ]
@@ -56,7 +55,7 @@ extension NetworkManager {
         for category in swipeCategory {
             let params: [String : String] = [
                 "q" : category,
-                "language" : getCurrentLanguage(),
+                "language" : Utils.getCurrentLanguage(),
                 "sortBy" : "relevancy",
                 "pageSize" : pageSize,
                 "apiKey" : apiKey
@@ -101,7 +100,7 @@ private extension NetworkManager {
                     
                     let publishedAtString = responseArticle["publishedAt"].string ?? ""
                     
-                    article.articlePublicationTime = getDateFromApi(date: publishedAtString).timeAgoSinceNow
+                    article.articlePublicationTime = Utils.getDateFromApi(date: publishedAtString).timeAgoSinceNow
                     
                     
                     if let newsUrl: URL = URL(string: article.articleUrl) {
@@ -114,49 +113,6 @@ private extension NetworkManager {
         }
         Storage.shared.setCategoryList(result: resultArrayArticles, categoryName: category)
         listener.successRequest(result: resultArrayArticles, category: category)
-    }
-    
-    func getCurrentLanguage() -> String {
-        return String(Locale.preferredLanguages[0].lowercased().dropLast(3))
-    }
-    
-    func getCurrentCountry() -> String {
-        print("LANGUAGE ------->>>> \(Locale.preferredLanguages[0].lowercased().dropLast(3))")
-        var defaultCountry: String = "us"
-        let arrayCountry = Storage.shared.getCountries()
-        if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
-            if arrayCountry.contains(countryCode.lowercased()) {
-                defaultCountry = countryCode.lowercased()
-            }
-        }
-        print("COUNTRY  ------->>>> \(defaultCountry)")
-        return defaultCountry
-    }
-    
-    func getDateFromApi(date: String) -> Date {
-        var parsingString = date
-        parsingString.removeLast()
-        let parsingDateAndTime = parsingString.components(separatedBy: "T")
-        let parsingDate = parsingDateAndTime[0]
-        let parsingTime = parsingDateAndTime[1]
-        let date = parsingDate.components(separatedBy: "-")
-        let time = parsingTime.components(separatedBy: ":")
-        let year = date[0]
-        let mounth = date[1]
-        let day = date[2]
-        let hours = time[0]
-        let min = time[1]
-        let sec = time[2]
-        var components = DateComponents()
-        components.day = Int(day)!
-        components.month = Int(mounth)!
-        components.year = Int(year)!
-        components.hour = Int(hours)!
-        components.minute = Int(min)!
-        components.second = Int(sec)!
-        components.timeZone = TimeZone(abbreviation: "UTC")
-        let datePublishedAt = Calendar.current.date(from: components as DateComponents)
-        return datePublishedAt!
     }
 }
 
