@@ -10,6 +10,8 @@
 		8D8C43FBCEA1CA6011237618 /* Pods_MyNewsAggregator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 399F8F4076E7192BF8DCD560 /* Pods_MyNewsAggregator.framework */; };
 		92FDF48A22FC1885000685AD /* Countries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92FDF48922FC1885000685AD /* Countries.plist */; };
 		92FDF48C22FC1C5B000685AD /* Categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92FDF48B22FC1C5B000685AD /* Categories.plist */; };
+		9556BBFA233E3A4700BBEBB3 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9556BBF9233E3A4700BBEBB3 /* AlertController.swift */; };
+		9556BBFD233E3A9200BBEBB3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9556BBFC233E3A9200BBEBB3 /* Utils.swift */; };
 		95781512225F8470004DA308 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781511225F8470004DA308 /* Article.swift */; };
 		95781517225F8554004DA308 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95781516225F8553004DA308 /* WebKit.framework */; };
 		95781519225F85A7004DA308 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781518225F85A7004DA308 /* ConnectionManager.swift */; };
@@ -47,6 +49,8 @@
 		5152C27AC18DC253FA047BDF /* Pods-MyNewsAggregator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyNewsAggregator.release.xcconfig"; path = "Target Support Files/Pods-MyNewsAggregator/Pods-MyNewsAggregator.release.xcconfig"; sourceTree = "<group>"; };
 		92FDF48922FC1885000685AD /* Countries.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Countries.plist; sourceTree = "<group>"; };
 		92FDF48B22FC1C5B000685AD /* Categories.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Categories.plist; sourceTree = "<group>"; };
+		9556BBF9233E3A4700BBEBB3 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		9556BBFC233E3A9200BBEBB3 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		95781511225F8470004DA308 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		95781516225F8553004DA308 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		95781518225F85A7004DA308 /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
@@ -102,6 +106,22 @@
 				5152C27AC18DC253FA047BDF /* Pods-MyNewsAggregator.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		9556BBF8233E3A2D00BBEBB3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9556BBF9233E3A4700BBEBB3 /* AlertController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		9556BBFB233E3A8300BBEBB3 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9556BBFC233E3A9200BBEBB3 /* Utils.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		95781510225F8447004DA308 /* Screen */ = {
@@ -254,6 +274,8 @@
 			isa = PBXGroup;
 			children = (
 				95E1E06D225F756B005591FE /* AppDelegate.swift */,
+				9556BBFB233E3A8300BBEBB3 /* Utils */,
+				9556BBF8233E3A2D00BBEBB3 /* Controller */,
 				95CE4F1C233CD59200C26EBD /* Coordinator */,
 				95CE4F23233CDBB800C26EBD /* Extension */,
 				95781510225F8447004DA308 /* Screen */,
@@ -404,12 +426,14 @@
 				95CE4F1B233CD53B00C26EBD /* Coordinator.swift in Sources */,
 				9578152E225F8CD0004DA308 /* BookmarkCell.swift in Sources */,
 				95CE4F2F233CE84000C26EBD /* BookmarksCoordinator.swift in Sources */,
+				9556BBFA233E3A4700BBEBB3 /* AlertController.swift in Sources */,
 				95CE4F1E233CD98A00C26EBD /* AppCoordinator.swift in Sources */,
 				95781520225F8644004DA308 /* Storage.swift in Sources */,
 				95781519225F85A7004DA308 /* ConnectionManager.swift in Sources */,
 				95781512225F8470004DA308 /* Article.swift in Sources */,
 				95781525225F874B004DA308 /* ContentTableViewController.swift in Sources */,
 				9578151E225F8610004DA308 /* NetworkProtocol.swift in Sources */,
+				9556BBFD233E3A9200BBEBB3 /* Utils.swift in Sources */,
 				95781527225F877A004DA308 /* BookmarksViewController.swift in Sources */,
 				95E1E076225F756B005591FE /* MyNewsAggregator.xcdatamodeld in Sources */,
 				9578152B225F8BB5004DA308 /* NewsCell.swift in Sources */,

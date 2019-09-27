@@ -16,7 +16,6 @@ class NewsTableViewController: UITableViewController {
     @IBOutlet private weak var searchBar: UISearchBar!
     @IBOutlet private weak var newsTableView: UITableView!
     
-    private let connection = ConnectionManager.sharedInstance
     private var emptyLabel: UILabel!
     
     private var gearRefreshControl: GearRefreshControl!
@@ -31,16 +30,12 @@ extension NewsTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        NetworkManager.shared.getTopHeadLinesNews(listener: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        checkCurrentConnection()
     }
 }
 
@@ -134,8 +129,7 @@ private extension NewsTableViewController {
         gearRefreshControl.addTarget(self, action: #selector(NewsTableViewController.refresh), for: UIControl.Event.valueChanged)
         refreshControl = gearRefreshControl
         gearRefreshControl.gearTintColor = .white
-        
-        prepareChangeConnectionListener()
+
         prepareEmptyLabel()
         spiner.startAnimating()
         newsTableView.keyboardDismissMode = .onDrag
@@ -167,43 +161,6 @@ private extension NewsTableViewController {
         emptyLabel.text = "No news found"
         emptyLabel.isHidden = true
         view.addSubview(emptyLabel)
-    }
-    
-    func prepareChangeConnectionListener() {
-        ConnectionManager.isReachable { _ in
-            NetworkManager.shared.getTopHeadLinesNews(listener: self)
-            self.gearRefreshControl.gearTintColor = .white
-        }
-        
-        connection.reachability.whenReachable = {
-            _ in
-            NetworkManager.shared.getTopHeadLinesNews(listener: self)
-            self.gearRefreshControl.gearTintColor = .white
-        }
-        
-        connection.reachability.whenUnreachable = {
-            _ in
-            self.showLostConnectionMessage()
-            self.gearRefreshControl.gearTintColor = .red
-        }
-    }
-    
-    func checkCurrentConnection() {
-        ConnectionManager.isUnreachable { _ in
-            self.showLostConnectionMessage()
-            self.gearRefreshControl.gearTintColor = .red
-        }
-    }
-    
-    func showLostConnectionMessage() {
-        let dialogMessage = UIAlertController(title: "Lost internet connection", message: "Check connection settings", preferredStyle: .alert)
-        let okButton = UIAlertAction(title: "OK", style: .default) { action in
-            if self.spiner.isAnimating {
-                self.checkCurrentConnection()
-            }
-        }
-        dialogMessage.addAction(okButton)
-        present(dialogMessage, animated: true, completion: nil)
     }
 }
 

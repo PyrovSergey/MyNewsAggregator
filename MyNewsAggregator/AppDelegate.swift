@@ -30,4 +30,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return true
     }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        ConnectionManager.shared.beginObserver()
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        ConnectionManager.shared.endObserver()
+    }
 }

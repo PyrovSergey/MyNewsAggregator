@@ -6,73 +6,68 @@
 //  Copyright © 2019 PyrovSergey. All rights reserved.
 //
 
-import Foundation
 import Reachability
+
 
 class ConnectionManager: NSObject {
     
-    var reachability: Reachability!
+    static let shared = ConnectionManager()
     
-    static let sharedInstance: ConnectionManager = {
-        return ConnectionManager()
-    }()
-    override init() {
+    private(set) var isConnected: Bool = true {
+        didSet {
+            updateViewState()
+        }
+    }
+    
+    private override init() {
         super.init()
-        // Initialise reachability
-        reachability = Reachability()!
-        // Register an observer for the network status
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(networkStatusChanged),
-            name: .reachabilityChanged,
-            object: reachability
-        )
+        
+        reachability = Reachability()
+        
         do {
-            // Start the network status notifier
-            try reachability.startNotifier()
+            try reachability?.startNotifier()
         } catch {
             print("Unable to start notifier")
         }
     }
     
-    @objc func networkStatusChanged(_ notification: Notification) {
-        // Do something globally here!
+    private var reachability: Reachability?
+}
+
+// MARK: - Public Interface
+extension ConnectionManager {
+    
+    func beginObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(networkStatusChanged),
+                                               name: .reachabilityChanged,
+                                               object: reachability)
     }
     
-    static func stopNotifier() -> Void {
-        do {
-            // Stop the network status notifier
-            try (ConnectionManager.sharedInstance.reachability).startNotifier()
-        } catch {
-            print("Error stopping notifier")
+    func endObserver() {
+        reachability?.stopNotifier()
+    }
+}
+
+// MARK: - Private
+private extension ConnectionManager {
+    
+    func updateViewState() {
+        
+        if isConnected {
+            AlertController.shared.hideToast()
+        } else {
+            AlertController.shared.showErrorToast(error: "No connection",
+                                                  autoHide: false)
         }
     }
     
-    // Network is reachable
-    static func isReachable(completed: @escaping (ConnectionManager) -> Void) {
-        if (ConnectionManager.sharedInstance.reachability).connection != .none {
-            completed(ConnectionManager.sharedInstance)
+    @objc func networkStatusChanged() {
+        
+        guard let connection = reachability?.connection else {
+            isConnected = false
+            return
         }
-    }
-    
-    // Network is unreachable
-    static func isUnreachable(completed: @escaping (ConnectionManager) -> Void) {
-        if (ConnectionManager.sharedInstance.reachability).connection == .none {
-            completed(ConnectionManager.sharedInstance)
-        }
-    }
-    
-    // Network is reachable via WWAN/Cellular
-    static func isReachableViaWWAN(completed: @escaping (ConnectionManager) -> Void) {
-        if (ConnectionManager.sharedInstance.reachability).connection == .cellular {
-            completed(ConnectionManager.sharedInstance)
-        }
-    }
-    
-    // Network is reachable via WiFi
-    static func isReachableViaWiFi(completed: @escaping (ConnectionManager) -> Void) {
-        if (ConnectionManager.sharedInstance.reachability).connection == .wifi {
-            completed(ConnectionManager.sharedInstance)
-        }
+        isConnected = connection != .none
     }
 }

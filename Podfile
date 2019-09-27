@@ -7,15 +7,22 @@ target 'MyNewsAggregator' do
 
   # Pods for MyNewsAggregator
 
-pod 'SwiftyJSON'
-pod 'Alamofire'
-pod 'ReachabilitySwift'
-pod 'SDWebImage'
-pod 'SwipeMenuViewController'
-pod 'DateToolsSwift'
-pod 'RealmSwift'
-pod 'SwipeCellKit'
-pod 'GearRefreshControl'
-pod 'PromiseKit'
+  pod 'SwiftyJSON'
+  pod 'Alamofire'
+  pod 'AlamofireObjectMapper'
+  pod 'ObjectMapper'
+  pod 'ReachabilitySwift'
+  pod 'SDWebImage'
+  pod 'SwipeMenuViewController'
+  pod 'DateToolsSwift'
+  pod 'RealmSwift'
+  pod 'SwipeCellKit'
+  pod 'SwiftMessages', '7.0.0'
+  pod 'GearRefreshControl'
+  pod 'JDStatusBarNotification'
+  pod 'RxSwift'
+  pod 'RxCocoa'
+  
+  pod 'PromiseKit'
 
 end
