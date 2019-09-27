@@ -12,6 +12,9 @@
 		92FDF48C22FC1C5B000685AD /* Categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92FDF48B22FC1C5B000685AD /* Categories.plist */; };
 		9556BBFA233E3A4700BBEBB3 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9556BBF9233E3A4700BBEBB3 /* AlertController.swift */; };
 		9556BBFD233E3A9200BBEBB3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9556BBFC233E3A9200BBEBB3 /* Utils.swift */; };
+		9556BBFF233E529200BBEBB3 /* NetworkRxManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9556BBFE233E529200BBEBB3 /* NetworkRxManager.swift */; };
+		9556BC01233E5FFF00BBEBB3 /* NewsApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9556BC00233E5FFF00BBEBB3 /* NewsApiManager.swift */; };
+		9556BC03233E6D4800BBEBB3 /* ArticlesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9556BC02233E6D4800BBEBB3 /* ArticlesResponse.swift */; };
 		95781512225F8470004DA308 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781511225F8470004DA308 /* Article.swift */; };
 		95781517225F8554004DA308 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95781516225F8553004DA308 /* WebKit.framework */; };
 		95781519225F85A7004DA308 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781518225F85A7004DA308 /* ConnectionManager.swift */; };
@@ -51,6 +54,9 @@
 		92FDF48B22FC1C5B000685AD /* Categories.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Categories.plist; sourceTree = "<group>"; };
 		9556BBF9233E3A4700BBEBB3 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		9556BBFC233E3A9200BBEBB3 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		9556BBFE233E529200BBEBB3 /* NetworkRxManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRxManager.swift; sourceTree = "<group>"; };
+		9556BC00233E5FFF00BBEBB3 /* NewsApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsApiManager.swift; sourceTree = "<group>"; };
+		9556BC02233E6D4800BBEBB3 /* ArticlesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesResponse.swift; sourceTree = "<group>"; };
 		95781511225F8470004DA308 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		95781516225F8553004DA308 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		95781518225F85A7004DA308 /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
@@ -141,6 +147,7 @@
 				95781511225F8470004DA308 /* Article.swift */,
 				92FDF48922FC1885000685AD /* Countries.plist */,
 				92FDF48B22FC1C5B000685AD /* Categories.plist */,
+				9556BC02233E6D4800BBEBB3 /* ArticlesResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -162,6 +169,8 @@
 				95781518225F85A7004DA308 /* ConnectionManager.swift */,
 				9578151B225F85EB004DA308 /* NetworkManager.swift */,
 				9578151D225F8610004DA308 /* NetworkProtocol.swift */,
+				9556BBFE233E529200BBEBB3 /* NetworkRxManager.swift */,
+				9556BC00233E5FFF00BBEBB3 /* NewsApiManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -425,7 +434,9 @@
 				95781529225F879A004DA308 /* ArticleViewController.swift in Sources */,
 				95CE4F1B233CD53B00C26EBD /* Coordinator.swift in Sources */,
 				9578152E225F8CD0004DA308 /* BookmarkCell.swift in Sources */,
+				9556BC01233E5FFF00BBEBB3 /* NewsApiManager.swift in Sources */,
 				95CE4F2F233CE84000C26EBD /* BookmarksCoordinator.swift in Sources */,
+				9556BBFF233E529200BBEBB3 /* NetworkRxManager.swift in Sources */,
 				9556BBFA233E3A4700BBEBB3 /* AlertController.swift in Sources */,
 				95CE4F1E233CD98A00C26EBD /* AppCoordinator.swift in Sources */,
 				95781520225F8644004DA308 /* Storage.swift in Sources */,
@@ -435,6 +446,7 @@
 				9578151E225F8610004DA308 /* NetworkProtocol.swift in Sources */,
 				9556BBFD233E3A9200BBEBB3 /* Utils.swift in Sources */,
 				95781527225F877A004DA308 /* BookmarksViewController.swift in Sources */,
+				9556BC03233E6D4800BBEBB3 /* ArticlesResponse.swift in Sources */,
 				95E1E076225F756B005591FE /* MyNewsAggregator.xcdatamodeld in Sources */,
 				9578152B225F8BB5004DA308 /* NewsCell.swift in Sources */,
 				95E1E070225F756B005591FE /* CategoriesViewController.swift in Sources */,

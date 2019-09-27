@@ -22,11 +22,7 @@ class NetworkManager {
     private let apiKey: String = "1d48cf2bd8034be59054969db665e62e"
     private let pageSize: String = "100"
     
-    private var temporaryStorage: Storage
-    
-    private init() {
-        temporaryStorage = Storage.shared
-    }
+    private init() {}
 }
 
 // MARK: - Network Request
@@ -44,6 +40,7 @@ extension NetworkManager {
     func getRequestDataNews(request: String, listener: NetworkProtocol) {
         let params: [String : String] = [
             "q" : request,
+            "language" : Utils.getCurrentLanguage(),
             "sortBy" : "relevancy",
             "pageSize" : pageSize,
             "apiKey" : apiKey
