@@ -7,8 +7,9 @@
 //
 
 import Alamofire
-import RxSwift
 import AlamofireObjectMapper
+import RxSwift
+import SwiftyJSON
 
 class NewsApiManager {
     
@@ -54,12 +55,12 @@ extension NewsApiManager {
             Alamofire.request(url, method: .get, parameters: params).responseObject { (response: DataResponse<ArticlesResponse>) in
                 
                 switch response.result {
-                    
                 case .success(let value):
                     single(.success(value))
                 case .failure(let error):
                     single(.error(error))
                 }
+                
             }
             return Disposables.create {
                 AlertController.shared.hideProgress()

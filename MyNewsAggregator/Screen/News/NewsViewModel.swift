@@ -26,18 +26,18 @@ class NewsViewModel: NSObject {
 extension NewsViewModel {
     
     func loadNews() {
-        networkManager.getTopHeadLinesNews().subscribe(onSuccess: { response in
-            guard let listOfArticles = response.articles else { return }
-            self.articlesList.accept(listOfArticles)
+        networkManager.getTopHeadLinesNews().subscribe(onSuccess: { articlesResponse in
+            guard let articles = articlesResponse.articles else { return }
+            self.articlesList.accept(articles)
         }, onError: { error in
             print(error.localizedDescription)
         }).disposed(by: bag)
     }
     
     func searchNews(by request: String) {
-        networkManager.getDataNews(by: request).subscribe(onSuccess: { response in
-            guard let listOfArticles = response.articles else { return }
-            self.articlesList.accept(listOfArticles)
+        networkManager.getDataNews(by: request).subscribe(onSuccess: { articlesResponse in
+            guard let articles = articlesResponse.articles else { return }
+            self.articlesList.accept(articles)
         }, onError: { error in
             print(error.localizedDescription)
         }).disposed(by: bag)

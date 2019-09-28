@@ -6,7 +6,8 @@
 //  Copyright © 2019 PyrovSergey. All rights reserved.
 //
 
-import UIKit
+import RxCocoa
+import RxSwift
 import SDWebImage
 import GearRefreshControl
 
@@ -14,15 +15,14 @@ import GearRefreshControl
 class NewsTableViewController: UITableViewController {
 
     @IBOutlet private weak var searchBar: UISearchBar!
-    @IBOutlet private weak var newsTableView: UITableView!
     @IBOutlet private var viewModel: NewsViewModel!
     
     private var emptyLabel: UILabel!
     
     private var gearRefreshControl: GearRefreshControl!
     
-    private var newsArray = [Article]()
     private let spiner = UIActivityIndicatorView(style: .gray)
+    private let bag = DisposeBag()
 }
 
 // MARK: - Override
@@ -31,90 +31,24 @@ extension NewsTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        NetworkManager.shared.getTopHeadLinesNews(listener: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
     }
-}
-
-// MARK: - UISearchBarDelegate
-extension NewsTableViewController: UISearchBarDelegate {
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if let inputText = searchBar.text {
-            emptyLabel.isHidden = true
-            newsArray.removeAll()
-            newsTableView.reloadData()
-            spiner.startAnimating()
-            NetworkManager.shared.getRequestDataNews(request: inputText, listener: self)
-        }
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text?.count == 0 {
-            newsArray.removeAll()
-            newsTableView.reloadData()
-            spiner.startAnimating()
-            NetworkManager.shared.getTopHeadLinesNews(listener: self)
-            DispatchQueue.main.async {
-                searchBar.resignFirstResponder()
-            }
-        }
-    }
-}
-
-// MARK: - UITableViewDataSource
-extension NewsTableViewController {
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return newsArray.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as! NewsCell
-        let currentArticle = newsArray[indexPath.row]
-        cell.sourceLabel.text = currentArticle.sourceTitle
-        cell.sourceImage.sd_setImage(with: URL(string: currentArticle.sourceImageUrl), placeholderImage: UIImage(named: "news-placeholder.jpg"))
-        cell.articleTitleLabel.text = currentArticle.articleTitle
-        cell.articleImage.sd_setImage(with: URL(string: currentArticle.articleImageUrl), placeholderImage: UIImage(named: "news-placeholder.jpg"))
-        cell.articlePublicationTimeLabel.text = currentArticle.articlePublicationTime
-        return cell
-    }
-}
-
-// MARK: - NetworkProtocol
-extension NewsTableViewController: NetworkProtocol {
-    
-    func successRequest(result: [Article], category: String) {
-        emptyLabel.isHidden = result.count != 0
-        newsArray = result
-        spiner.stopAnimating()
-        stopGearRefreshAnimation()
-        newsTableView.reloadData()
-    }
-    
-    func errorRequest(errorMessage: String) {
-        print(errorMessage)
-        gearRefreshControl.gearTintColor = .red
-    }
-}
-
-// MARK: - UITableViewDelegate
-extension NewsTableViewController {
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewController = ArticleViewController.instantinateFromStoryboard()
-        viewController.article = newsArray[indexPath.row].copy() as? Article
-        navigationController?.pushViewController(viewController, animated: true)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.loadNews()
+        gearRefreshControl.beginRefreshing()
     }
 }
 
 // MARK: - UIScrollViewDelegate
 extension NewsTableViewController {
     
+    // fix this
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         gearRefreshControl.scrollViewDidScroll(scrollView)
     }
@@ -125,6 +59,9 @@ private extension NewsTableViewController {
     
     func setupView() {
         title = "News"
+        
+        tableView.delegate = nil
+        tableView.dataSource = nil
 
         gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
         gearRefreshControl.addTarget(self, action: #selector(NewsTableViewController.refresh), for: UIControl.Event.valueChanged)
@@ -133,19 +70,42 @@ private extension NewsTableViewController {
 
         prepareEmptyLabel()
         spiner.startAnimating()
-        newsTableView.keyboardDismissMode = .onDrag
-        searchBar.delegate = self
+        tableView.keyboardDismissMode = .onDrag
         searchBar.placeholder = "Search news"
-        newsTableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "newsCell")
-        newsTableView.separatorStyle = .none
-        newsTableView.backgroundView = spiner
+        tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "newsCell")
+        tableView.separatorStyle = .none
+        tableView.backgroundView = spiner
+        
+        viewModel
+            .articles
+            .drive(tableView.rx.items(cellIdentifier: "newsCell", cellType: NewsCell.self)) { row, element, cell in
+            cell.sourceLabel.text = element.sourceTitle
+            cell.sourceImage.sd_setImage(with: URL(string: element.sourceImageUrl), placeholderImage: UIImage(named: "news-placeholder.jpg"))
+            cell.articleTitleLabel.text = element.articleTitle
+            cell.articleImage.sd_setImage(with: URL(string: element.articleImageUrl), placeholderImage: UIImage(named: "news-placeholder.jpg"))
+            cell.articlePublicationTimeLabel.text = Utils.getDateFromApi(date: element.articlePublicationTime).timeAgoSinceNow
+        }.disposed(by: bag)
+        
+        viewModel.articles
+            .map{ !$0.isEmpty }
+            .drive(emptyLabel.rx.isHidden)
+            .disposed(by: bag)
+        
+        
+        tableView.rx
+            .modelSelected(Article.self).subscribe(onNext: { [weak self] article in
+            self?.startArticleViewController(article: article)
+        }).disposed(by: bag)
+        
+        tableView.rx.contentOffset.subscribe {
+            print("offset now \($0.element)")
+        }.disposed(by: bag)
+        
     }
     
     @objc func refresh() {
-        newsArray.removeAll()
-        newsTableView.reloadData()
         spiner.startAnimating()
-        NetworkManager.shared.getTopHeadLinesNews(listener: self)
+        viewModel.loadNews()
     }
     
     func stopGearRefreshAnimation() {
@@ -162,6 +122,12 @@ private extension NewsTableViewController {
         emptyLabel.text = "No news found"
         emptyLabel.isHidden = true
         view.addSubview(emptyLabel)
+    }
+    
+    func startArticleViewController(article: Article) {
+        let viewController = ArticleViewController.instantinateFromStoryboard()
+        viewController.article = article
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

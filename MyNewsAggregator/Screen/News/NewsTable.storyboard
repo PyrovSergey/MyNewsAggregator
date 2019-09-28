@@ -37,7 +37,6 @@
                         </prototypes>
                     </tableView>
                     <connections>
-                        <outlet property="newsTableView" destination="gkZ-fE-Yir" id="rMe-1Q-URc"/>
                         <outlet property="searchBar" destination="zRy-uM-qy8" id="zgr-T6-vWr"/>
                         <outlet property="viewModel" destination="RYM-l6-Rpf" id="JLS-8g-N7h"/>
                     </connections>

@@ -20,8 +20,8 @@ extension NetworkRxManager {
         
         return Single.create(subscribe: { single -> Disposable in
             
-            self.newsApiManager.request().subscribe(onSuccess: { articlesResponse in
-                single(.success(articlesResponse))
+            self.newsApiManager.request().subscribe(onSuccess: { response in
+                single(.success(response))
             }, onError: { error in
                 single(.error(error))
             }).disposed(by: self.bag)
@@ -34,8 +34,8 @@ extension NetworkRxManager {
         
         return Single.create(subscribe: { single -> Disposable in
             
-            self.newsApiManager.request(request).subscribe(onSuccess: { articlesResponse in
-                single(.success(articlesResponse))
+            self.newsApiManager.request(request).subscribe(onSuccess: { response in
+                single(.success(response))
             }, onError: { error in
                 single(.error(error))
             }).disposed(by: self.bag)

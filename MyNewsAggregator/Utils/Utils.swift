@@ -6,7 +6,7 @@
 //  Copyright © 2019 PyrovSergey. All rights reserved.
 //
 
-import Foundation
+import SwiftyJSON
 
 class Utils {
     
@@ -51,5 +51,37 @@ class Utils {
         components.timeZone = TimeZone(abbreviation: "UTC")
         let datePublishedAt = Calendar.current.date(from: components as DateComponents)
         return datePublishedAt!
+    }
+    
+    static func parsingJsonResult(_ responseJSON: JSON) -> [Article] {
+        var resultArrayArticles: [Article] = []
+        if let responseArticleArray = responseJSON["articles"].array {
+            if !responseArticleArray.isEmpty {
+                for responseArticle in responseArticleArray {
+                    let article = Article()
+                    
+                    article.sourceTitle = responseArticle["source"]["name"].string ?? ""
+                    article.articleTitle = responseArticle["title"].string ?? ""
+                    article.articleImageUrl = responseArticle["urlToImage"].string ?? ""
+                    article.articleUrl = responseArticle["url"].string ?? "none"
+                    article.articlePublicationTime = responseArticle["publishedAt"].string ?? ""
+                    
+                    if let newsUrl: URL = URL(string: article.articleUrl) {
+                        let baseSourceUrl = newsUrl.host
+                        article.sourceImageUrl = "https://besticon-demo.herokuapp.com/icon?url=\(baseSourceUrl!)&size=32..64..64"
+                    }
+                    resultArrayArticles.append(article)
+                }
+            }
+        }
+        print(resultArrayArticles.count)
+        return resultArrayArticles
+    }
+    
+    static func getArticleImage(url: String) -> String {
+        let baseSourceUrl: URL = URL(string: url)!
+        let baseURL = baseSourceUrl.host
+        let result = "https://besticon-demo.herokuapp.com/icon?url=\(baseURL!)&size=32..64..64"
+        return result
     }
 }
