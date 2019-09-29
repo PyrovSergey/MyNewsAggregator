@@ -26,7 +26,7 @@ class NewsApiManager {
     ]
     
     private lazy var paramsForSearch: [String : String] = [
-        "q" : "request",
+        "q" : headLines,
         "language" : Utils.getCurrentLanguage(),
         "sortBy" : "relevancy",
         "pageSize" : pageSize,
@@ -39,7 +39,7 @@ extension NewsApiManager {
     
     func request(_ request: String? = nil) -> Single<ArticlesResponse> {
         
-        paramsForSearch["q"] = headLines
+        request == nil ? nil : (paramsForSearch["q"] = request)
         
         let params = request == nil ? paramsForTopHeadLinesNews : paramsForSearch
         let url = request == nil ? baseUrlTopHeadlinesAndCategory : baseUrlForRequest

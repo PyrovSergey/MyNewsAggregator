@@ -33,7 +33,6 @@
 		95CE4F1B233CD53B00C26EBD /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CE4F1A233CD53B00C26EBD /* Coordinator.swift */; };
 		95CE4F1E233CD98A00C26EBD /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CE4F1D233CD98A00C26EBD /* AppCoordinator.swift */; };
 		95CE4F25233CDBE600C26EBD /* UIViewController+Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CE4F24233CDBE600C26EBD /* UIViewController+Storyboard.swift */; };
-		95CE4F27233CDC0E00C26EBD /* UIWindow+RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CE4F26233CDC0E00C26EBD /* UIWindow+RootViewController.swift */; };
 		95CE4F29233CDDE500C26EBD /* NewsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CE4F28233CDDE500C26EBD /* NewsCoordinator.swift */; };
 		95CE4F2D233CE71C00C26EBD /* CategoriesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CE4F2C233CE71C00C26EBD /* CategoriesCoordinator.swift */; };
 		95CE4F2F233CE84000C26EBD /* BookmarksCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CE4F2E233CE84000C26EBD /* BookmarksCoordinator.swift */; };
@@ -76,7 +75,6 @@
 		95CE4F1A233CD53B00C26EBD /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		95CE4F1D233CD98A00C26EBD /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		95CE4F24233CDBE600C26EBD /* UIViewController+Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Storyboard.swift"; sourceTree = "<group>"; };
-		95CE4F26233CDC0E00C26EBD /* UIWindow+RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+RootViewController.swift"; sourceTree = "<group>"; };
 		95CE4F28233CDDE500C26EBD /* NewsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCoordinator.swift; sourceTree = "<group>"; };
 		95CE4F2C233CE71C00C26EBD /* CategoriesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCoordinator.swift; sourceTree = "<group>"; };
 		95CE4F2E233CE84000C26EBD /* BookmarksCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksCoordinator.swift; sourceTree = "<group>"; };
@@ -259,7 +257,6 @@
 			isa = PBXGroup;
 			children = (
 				95CE4F24233CDBE600C26EBD /* UIViewController+Storyboard.swift */,
-				95CE4F26233CDC0E00C26EBD /* UIWindow+RootViewController.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -433,7 +430,6 @@
 				95CE4F2D233CE71C00C26EBD /* CategoriesCoordinator.swift in Sources */,
 				9578151C225F85EB004DA308 /* NetworkManager.swift in Sources */,
 				95CE4F25233CDBE600C26EBD /* UIViewController+Storyboard.swift in Sources */,
-				95CE4F27233CDC0E00C26EBD /* UIWindow+RootViewController.swift in Sources */,
 				95781529225F879A004DA308 /* ArticleViewController.swift in Sources */,
 				95CE4F1B233CD53B00C26EBD /* Coordinator.swift in Sources */,
 				9578152E225F8CD0004DA308 /* BookmarkCell.swift in Sources */,

@@ -34,8 +34,9 @@ extension NewsViewModel {
         }).disposed(by: bag)
     }
     
-    func searchNews(by request: String) {
-        networkManager.getDataNews(by: request).subscribe(onSuccess: { articlesResponse in
+    func searchNews() {
+        guard searchText.value.isEmpty == false else { return }
+        networkManager.getDataNews(by: searchText.value).subscribe(onSuccess: { articlesResponse in
             guard let articles = articlesResponse.articles else { return }
             self.articlesList.accept(articles)
         }, onError: { error in
