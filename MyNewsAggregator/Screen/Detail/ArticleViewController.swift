@@ -6,9 +6,8 @@
 //  Copyright © 2019 PyrovSergey. All rights reserved.
 //
 
-import UIKit
+import RxSwift
 import WebKit
-import RealmSwift
 
 class ArticleViewController: UIViewController {
     
@@ -17,10 +16,10 @@ class ArticleViewController: UIViewController {
     @IBOutlet private weak var webView: WKWebView!
     @IBOutlet private weak var progressView: UIProgressView!
 
-    private let realm = try! Realm()
-    private var bookmarksArray : Results<Article>?
+    private lazy var bookmarksManager = BookmarksManager()
     private var addToBookmarksButton: UIBarButtonItem?
     private var goToSourceButton: UIBarButtonItem?
+    private let bag = DisposeBag()
 }
 
 // MARK: - Override
@@ -29,7 +28,6 @@ extension ArticleViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        load()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -74,14 +72,13 @@ private extension ArticleViewController {
     }
     
     @objc func clickAddToBookmarksButton(_ sender: UIBarButtonItem) {
-        do {
-            try realm.write {
-                realm.add(article!)
-                addToBookmarksButton?.isEnabled = false
-            }
-        } catch {
-            print("Error saving article \(error)")
-        }
+        guard let article = article else { return }
+        bookmarksManager.add(article: article).subscribe(onCompleted: {
+            AlertController.shared.showToast(message: "Bookmark added")
+            self.checkArticleInBookmarks(article: article)
+        }, onError: { error in
+            AlertController.shared.showErrorToast(error: "Error added bookmarks", autoHide: true)
+        }).disposed(by: bag)
     }
     
     func goToSource() {
@@ -99,17 +96,10 @@ private extension ArticleViewController {
     }
     
     func checkArticleInBookmarks(article: Article?) {
-        let bookmarksArray : Results<Article> = realm.objects(Article.self)
-        for bookmark in bookmarksArray {
-            if bookmark.articleUrl == article?.articleUrl {
-                addToBookmarksButton?.isEnabled = false
-                break
-            }
-        }
-    }
-    
-    func load() {
-        bookmarksArray = realm.objects(Article.self)
+        guard let article = article else { return }
+        bookmarksManager.checkArticleInBookmarks(article: article).subscribe(onSuccess: { result in
+            self.addToBookmarksButton?.isEnabled = !result
+        }).disposed(by: bag)
     }
 }
 
