@@ -11,8 +11,6 @@ import RxCocoa
 
 class CategoryViewModel {
     
-    private let nameOfCategory: String?
-    
     var articles: Driver<[Article]> {
         return articlesList.asDriver()
     }
@@ -21,6 +19,7 @@ class CategoryViewModel {
         nameOfCategory = categoryName
     }
     
+    private let nameOfCategory: String?
     private var articlesList = BehaviorRelay<[Article]>(value: [])
     private lazy var networkManager = NetworkRxManager()
     private let bag = DisposeBag()

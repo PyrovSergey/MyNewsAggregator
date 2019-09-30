@@ -7,13 +7,14 @@
 //
 
 import SwiftyJSON
+import DateToolsSwift
 
 class Utils {
     
     static func getCurrentCountry() -> String {
         print("LANGUAGE ------->>>> \(Locale.preferredLanguages[0].lowercased().dropLast(3))")
         var defaultCountry: String = "us"
-        let arrayCountry = Storage.shared.getCountries()
+        let arrayCountry = Utils.getCountries()
         if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
             if arrayCountry.contains(countryCode.lowercased()) {
                 defaultCountry = countryCode.lowercased()
@@ -83,5 +84,21 @@ class Utils {
         let baseURL = baseSourceUrl.host
         let result = "https://besticon-demo.herokuapp.com/icon?url=\(baseURL!)&size=32..64..64"
         return result
+    }
+    
+    static func getCountries() -> [String] {
+        
+        let url = Bundle.main.url(forResource: "Countries", withExtension: "plist")!
+        let categoriesData = try! Data(contentsOf: url)
+        let categoriesList = try! PropertyListSerialization.propertyList(from: categoriesData, options: [], format: nil) as! [String]
+        return categoriesList
+    }
+    
+    static func getCategories() -> [String] {
+        
+        let url = Bundle.main.url(forResource: "Categories", withExtension: "plist")!
+        let categoriesData = try! Data(contentsOf: url)
+        let categoriesList = try! PropertyListSerialization.propertyList(from: categoriesData, options: [], format: nil) as! [String]
+        return categoriesList
     }
 }

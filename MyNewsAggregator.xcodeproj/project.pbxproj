@@ -21,9 +21,7 @@
 		95781512225F8470004DA308 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781511225F8470004DA308 /* Article.swift */; };
 		95781517225F8554004DA308 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95781516225F8553004DA308 /* WebKit.framework */; };
 		95781519225F85A7004DA308 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781518225F85A7004DA308 /* ConnectionManager.swift */; };
-		9578151C225F85EB004DA308 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578151B225F85EB004DA308 /* NetworkManager.swift */; };
 		9578151E225F8610004DA308 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578151D225F8610004DA308 /* NetworkProtocol.swift */; };
-		95781520225F8644004DA308 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578151F225F8644004DA308 /* Storage.swift */; };
 		95781523225F86A7004DA308 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781522225F86A7004DA308 /* NewsTableViewController.swift */; };
 		95781527225F877A004DA308 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781526225F877A004DA308 /* BookmarksViewController.swift */; };
 		95781529225F879A004DA308 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781528225F879A004DA308 /* ArticleViewController.swift */; };
@@ -64,9 +62,7 @@
 		95781511225F8470004DA308 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		95781516225F8553004DA308 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		95781518225F85A7004DA308 /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
-		9578151B225F85EB004DA308 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9578151D225F8610004DA308 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
-		9578151F225F8644004DA308 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		95781522225F86A7004DA308 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		95781526225F877A004DA308 /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
 		95781528225F879A004DA308 /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
@@ -169,20 +165,11 @@
 			isa = PBXGroup;
 			children = (
 				95781518225F85A7004DA308 /* ConnectionManager.swift */,
-				9578151B225F85EB004DA308 /* NetworkManager.swift */,
 				9578151D225F8610004DA308 /* NetworkProtocol.swift */,
 				9556BBFE233E529200BBEBB3 /* NetworkRxManager.swift */,
 				9556BC00233E5FFF00BBEBB3 /* NewsApiManager.swift */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		95781521225F8654004DA308 /* DB */ = {
-			isa = PBXGroup;
-			children = (
-				9578151F225F8644004DA308 /* Storage.swift */,
-			);
-			path = DB;
 			sourceTree = "<group>";
 		};
 		9578152C225F8C7E004DA308 /* Cell */ = {
@@ -294,7 +281,6 @@
 				95781513225F8484004DA308 /* Model */,
 				95781515225F84C4004DA308 /* Supporting files */,
 				9578151A225F85C7004DA308 /* Network */,
-				95781521225F8654004DA308 /* DB */,
 			);
 			path = MyNewsAggregator;
 			sourceTree = "<group>";
@@ -432,7 +418,6 @@
 			files = (
 				9507C716234228DB00C51C57 /* CategoryViewModel.swift in Sources */,
 				95CE4F2D233CE71C00C26EBD /* CategoriesCoordinator.swift in Sources */,
-				9578151C225F85EB004DA308 /* NetworkManager.swift in Sources */,
 				95CE4F25233CDBE600C26EBD /* UIViewController+Storyboard.swift in Sources */,
 				95781529225F879A004DA308 /* ArticleViewController.swift in Sources */,
 				95CE4F1B233CD53B00C26EBD /* Coordinator.swift in Sources */,
@@ -443,7 +428,6 @@
 				9556BC05233E85DD00BBEBB3 /* NewsViewModel.swift in Sources */,
 				9556BBFA233E3A4700BBEBB3 /* AlertController.swift in Sources */,
 				95CE4F1E233CD98A00C26EBD /* AppCoordinator.swift in Sources */,
-				95781520225F8644004DA308 /* Storage.swift in Sources */,
 				95781519225F85A7004DA308 /* ConnectionManager.swift in Sources */,
 				9507C7142342279C00C51C57 /* CategoryTableViewController.swift in Sources */,
 				95781512225F8470004DA308 /* Article.swift in Sources */,

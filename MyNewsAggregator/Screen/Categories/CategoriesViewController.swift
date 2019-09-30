@@ -14,7 +14,7 @@ import SwiftyJSON
 
 class CategoriesViewController: SwipeMenuViewController {
     
-    private lazy var swipeCategory = Storage.shared.getCategories()
+    private lazy var swipeCategory = Utils.getCategories()
     private var arrayControllers = [String : CategoryTableViewController]()
     
     private var options = SwipeMenuViewOptions()
