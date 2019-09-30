@@ -31,7 +31,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bookmark list is empty" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MH1-F8-KgE">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bookmark list is empty" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MH1-F8-KgE">
                                 <rect key="frame" x="111" y="436.5" width="192" height="23"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <nil key="textColor"/>
@@ -50,11 +50,13 @@
                         <viewLayoutGuide key="safeArea" id="aOW-LD-LO1"/>
                     </view>
                     <connections>
-                        <outlet property="labelBookmarksIsEmpty" destination="MH1-F8-KgE" id="1Ks-6t-yd6"/>
+                        <outlet property="emptyLabel" destination="MH1-F8-KgE" id="aKg-XY-Laq"/>
                         <outlet property="tableView" destination="o9q-h0-ex9" id="1h1-yE-exS"/>
+                        <outlet property="viewModel" destination="iIC-hq-l1v" id="J0J-eF-zOe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VSq-9J-fNi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="iIC-hq-l1v" customClass="BookmarksViewModel" customModule="MyNewsAggregator" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="2508.6956521739135" y="1069.5652173913045"/>
         </scene>
