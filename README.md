@@ -8,8 +8,10 @@ News aggregator application for android
 ### Used Libraries
 - Alamofire
 - AlamofireObjectMapper
+- Coordinator
 - DateToolsSwift
 - JDStatusBarNotification
+- MVVM
 - ObjectMapper
 - RxSwift
 - RxCocoa
