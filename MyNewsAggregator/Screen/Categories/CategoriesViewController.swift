@@ -15,7 +15,7 @@ import SwiftyJSON
 class CategoriesViewController: SwipeMenuViewController {
     
     private lazy var swipeCategory = Storage.shared.getCategories()
-    private var arrayControllers = [String : ContentTableViewController]()
+    private var arrayControllers = [String : CategoryTableViewController]()
     
     private var options = SwipeMenuViewOptions()
     private var dataCount: Int = 6
@@ -52,9 +52,9 @@ class CategoriesViewController: SwipeMenuViewController {
     }
     
     override func swipeMenuView(_ swipeMenuView: SwipeMenuView, viewControllerForPageAt index: Int) -> UIViewController {
-        let vc = children[index]
-        vc.didMove(toParent: self)
-        return vc
+        let viewController = children[index]
+        viewController.didMove(toParent: self)
+        return viewController
     }
 }
 
@@ -62,22 +62,15 @@ class CategoriesViewController: SwipeMenuViewController {
 extension CategoriesViewController {
     
     override func viewDidLoad() {
-        swipeCategory.forEach { data in
-            let vc = ContentTableViewController()
-            arrayControllers[data] = vc
-            vc.title = data
-            vc.parentController = self
-            self.addChild(vc)
+        swipeCategory.forEach { categoryName in
+            let viewController = CategoryTableViewController()
+            arrayControllers[categoryName] = viewController
+            viewController.title = categoryName
+            viewController.viewModel = CategoryViewModel(categoryName: categoryName)
+            self.addChild(viewController)
         }
         super.viewDidLoad()
         setupView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        NetworkManager.shared.getUpdateCategoryLists(listener: self)
-        self.tabBarController?.tabBar.isHidden = false
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -86,19 +79,6 @@ extension CategoriesViewController {
             reload()
             firstOpening = false
         }
-    }
-}
-
-// MARK: - NetworkProtocol
-extension CategoriesViewController: NetworkProtocol {
-    
-    func successRequest(result: [Article], category: String) {
-        let vc = arrayControllers[category]
-        vc?.setNewListCategoryAndUpdateUI(articleArray: result)
-    }
-    
-    func errorRequest(errorMessage: String) {
-        
     }
 }
 

@@ -1,8 +1,8 @@
 //
-//  NewsTableViewController.swift
+//  CategoryTableViewController.swift
 //  MyNewsAggregator
 //
-//  Created by Sergey on 11/04/2019.
+//  Created by Sergey on 30/09/2019.
 //  Copyright © 2019 PyrovSergey. All rights reserved.
 //
 
@@ -10,54 +10,37 @@ import RxCocoa
 import RxSwift
 import SDWebImage
 
-
-class NewsTableViewController: UITableViewController {
-
-    @IBOutlet private weak var searchBar: UISearchBar!
-    @IBOutlet private var viewModel: NewsViewModel!
+class CategoryTableViewController: UITableViewController {
     
-    private var emptyLabel: UILabel!
+    var viewModel: CategoryViewModel?
+    
     private let customRefreshControl = UIRefreshControl()
     private let spiner = UIActivityIndicatorView(style: .gray)
     private let bag = DisposeBag()
 }
 
 // MARK: - Override
-extension NewsTableViewController {
+extension CategoryTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         bind()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tabBarController?.tabBar.isHidden = false
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         refresh()
     }
 }
 
 // MARK: - Private
-private extension NewsTableViewController {
+private extension CategoryTableViewController {
     
     func setupView() {
-        title = "News"
-        
-        prepareEmptyLabel()
-        
+
         tableView.delegate = nil
         tableView.dataSource = nil
-
+        
         spiner.startAnimating()
         tableView.backgroundView = spiner
         
-        tableView.keyboardDismissMode = .onDrag
-        searchBar.placeholder = "Search news"
         tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "newsCell")
         tableView.separatorStyle = .none
         
@@ -74,7 +57,7 @@ private extension NewsTableViewController {
                 self?.startArticleViewController(article: article)
             }).disposed(by: bag)
         
-        viewModel
+        viewModel?
             .articles
             .drive(tableView.rx.items(cellIdentifier: "newsCell", cellType: NewsCell.self)) { row, element, cell in
                 cell.sourceLabel.text = element.sourceTitle
@@ -84,14 +67,7 @@ private extension NewsTableViewController {
                 cell.articlePublicationTimeLabel.text = Utils.getDateFromApi(date: element.articlePublicationTime).timeAgoSinceNow
             }.disposed(by: bag)
         
-        viewModel
-            .articles
-            .map{ !$0.isEmpty }
-            .skip(1)
-            .drive(emptyLabel.rx.isHidden)
-            .disposed(by: bag)
-        
-        viewModel
+        viewModel?
             .articles
             .distinctUntilChanged()
             .asObservable()
@@ -99,45 +75,6 @@ private extension NewsTableViewController {
                 self.spiner.stopAnimating()
                 self.customRefreshControl.endRefreshing()
             }.disposed(by: bag)
-        
-        searchBar.rx
-            .text
-            .orEmpty
-            .bind(to: viewModel.searchText)
-            .disposed(by: bag)
-        
-        searchBar.rx
-            .text
-            .distinctUntilChanged()
-            .map { $0! }
-            .filter { $0.isEmpty }
-            .subscribe(onNext: { _ in
-            self.refresh()
-        }).disposed(by: bag)
-        
-        searchBar.rx
-            .searchButtonClicked
-            .asObservable()
-            .subscribe(onNext: {
-                self.viewModel.searchNews()
-            }).disposed(by: bag)
-    }
-    
-    @objc func refresh() {
-        
-        spiner.startAnimating()
-        searchBar.text?.removeAll()
-        viewModel.loadNews()
-    }
-    
-    func prepareEmptyLabel() {
-        
-        emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-        emptyLabel.center = CGPoint(x: view.center.x, y: view.center.y)
-        emptyLabel.textAlignment = .center
-        emptyLabel.text = "No news found"
-        emptyLabel.isHidden = true
-        view.addSubview(emptyLabel)
     }
     
     func startArticleViewController(article: Article) {
@@ -146,7 +83,9 @@ private extension NewsTableViewController {
         viewController.article = article.copy() as? Article
         navigationController?.pushViewController(viewController, animated: true)
     }
+    
+    @objc func refresh() {
+        self.spiner.startAnimating()
+        viewModel?.updateCategoryNews()
+    }
 }
-
-// MARK: - StoryboardInstantinable
-extension NewsTableViewController: StoryboardInstantinable {}
