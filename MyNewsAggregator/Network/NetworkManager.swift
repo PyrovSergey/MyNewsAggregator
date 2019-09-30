@@ -8,13 +8,13 @@
 
 import RxSwift
 
-class NetworkRxManager {
+class NetworkManager {
     private let newsApiManager = NewsApiManager()
     private let bag = DisposeBag()
 }
 
 // MARK: - Public Interface
-extension NetworkRxManager {
+extension NetworkManager {
     
     func getTopHeadLinesNews() -> Single<ArticlesResponse> {
         

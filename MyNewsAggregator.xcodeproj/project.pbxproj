@@ -14,14 +14,13 @@
 		9507C716234228DB00C51C57 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9507C715234228DB00C51C57 /* CategoryViewModel.swift */; };
 		9556BBFA233E3A4700BBEBB3 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9556BBF9233E3A4700BBEBB3 /* AlertController.swift */; };
 		9556BBFD233E3A9200BBEBB3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9556BBFC233E3A9200BBEBB3 /* Utils.swift */; };
-		9556BBFF233E529200BBEBB3 /* NetworkRxManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9556BBFE233E529200BBEBB3 /* NetworkRxManager.swift */; };
+		9556BBFF233E529200BBEBB3 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9556BBFE233E529200BBEBB3 /* NetworkManager.swift */; };
 		9556BC01233E5FFF00BBEBB3 /* NewsApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9556BC00233E5FFF00BBEBB3 /* NewsApiManager.swift */; };
 		9556BC03233E6D4800BBEBB3 /* ArticlesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9556BC02233E6D4800BBEBB3 /* ArticlesResponse.swift */; };
 		9556BC05233E85DD00BBEBB3 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9556BC04233E85DD00BBEBB3 /* NewsViewModel.swift */; };
 		95781512225F8470004DA308 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781511225F8470004DA308 /* Article.swift */; };
 		95781517225F8554004DA308 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95781516225F8553004DA308 /* WebKit.framework */; };
 		95781519225F85A7004DA308 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781518225F85A7004DA308 /* ConnectionManager.swift */; };
-		9578151E225F8610004DA308 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578151D225F8610004DA308 /* NetworkProtocol.swift */; };
 		95781523225F86A7004DA308 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781522225F86A7004DA308 /* NewsTableViewController.swift */; };
 		95781527225F877A004DA308 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781526225F877A004DA308 /* BookmarksViewController.swift */; };
 		95781529225F879A004DA308 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95781528225F879A004DA308 /* ArticleViewController.swift */; };
@@ -55,14 +54,13 @@
 		9507C715234228DB00C51C57 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		9556BBF9233E3A4700BBEBB3 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		9556BBFC233E3A9200BBEBB3 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		9556BBFE233E529200BBEBB3 /* NetworkRxManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRxManager.swift; sourceTree = "<group>"; };
+		9556BBFE233E529200BBEBB3 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9556BC00233E5FFF00BBEBB3 /* NewsApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsApiManager.swift; sourceTree = "<group>"; };
 		9556BC02233E6D4800BBEBB3 /* ArticlesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesResponse.swift; sourceTree = "<group>"; };
 		9556BC04233E85DD00BBEBB3 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
 		95781511225F8470004DA308 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		95781516225F8553004DA308 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		95781518225F85A7004DA308 /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
-		9578151D225F8610004DA308 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		95781522225F86A7004DA308 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		95781526225F877A004DA308 /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
 		95781528225F879A004DA308 /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
@@ -165,8 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				95781518225F85A7004DA308 /* ConnectionManager.swift */,
-				9578151D225F8610004DA308 /* NetworkProtocol.swift */,
-				9556BBFE233E529200BBEBB3 /* NetworkRxManager.swift */,
+				9556BBFE233E529200BBEBB3 /* NetworkManager.swift */,
 				9556BC00233E5FFF00BBEBB3 /* NewsApiManager.swift */,
 			);
 			path = Network;
@@ -424,14 +421,13 @@
 				9578152E225F8CD0004DA308 /* BookmarkCell.swift in Sources */,
 				9556BC01233E5FFF00BBEBB3 /* NewsApiManager.swift in Sources */,
 				95CE4F2F233CE84000C26EBD /* BookmarksCoordinator.swift in Sources */,
-				9556BBFF233E529200BBEBB3 /* NetworkRxManager.swift in Sources */,
+				9556BBFF233E529200BBEBB3 /* NetworkManager.swift in Sources */,
 				9556BC05233E85DD00BBEBB3 /* NewsViewModel.swift in Sources */,
 				9556BBFA233E3A4700BBEBB3 /* AlertController.swift in Sources */,
 				95CE4F1E233CD98A00C26EBD /* AppCoordinator.swift in Sources */,
 				95781519225F85A7004DA308 /* ConnectionManager.swift in Sources */,
 				9507C7142342279C00C51C57 /* CategoryTableViewController.swift in Sources */,
 				95781512225F8470004DA308 /* Article.swift in Sources */,
-				9578151E225F8610004DA308 /* NetworkProtocol.swift in Sources */,
 				9556BBFD233E3A9200BBEBB3 /* Utils.swift in Sources */,
 				95781527225F877A004DA308 /* BookmarksViewController.swift in Sources */,
 				9556BC03233E6D4800BBEBB3 /* ArticlesResponse.swift in Sources */,

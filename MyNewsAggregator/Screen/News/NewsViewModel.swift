@@ -18,7 +18,7 @@ class NewsViewModel: NSObject {
     }
     
     private var articlesList = BehaviorRelay<[Article]>(value: [])
-    private lazy var networkManager = NetworkRxManager()
+    private lazy var networkManager = NetworkManager()
     private let bag = DisposeBag()
 }
 

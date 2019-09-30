@@ -18,11 +18,8 @@ target 'MyNewsAggregator' do
   pod 'RealmSwift'
   pod 'SwipeCellKit'
   pod 'SwiftMessages', '7.0.0'
-  pod 'GearRefreshControl'
   pod 'JDStatusBarNotification'
   pod 'RxSwift'
   pod 'RxCocoa'
-  
-  pod 'PromiseKit'
 
 end
