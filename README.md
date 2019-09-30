@@ -6,15 +6,21 @@ News aggregator application for android
 </a>
 
 ### Used Libraries
-- SwiftyJSON
 - Alamofire
+- AlamofireObjectMapper
+- DateToolsSwift
+- JDStatusBarNotification
+- ObjectMapper
+- RxSwift
+- RxCocoa
+- RealmSwift
 - ReachabilitySwift
 - SDWebImage
-- SwipeMenuViewController
-- DateToolsSwift
-- RealmSwift
+- SwiftyJSON
+- SwiftMessages
 - SwipeCellKit
-- GearRefreshControl
+- SwipeMenuViewController
+
  
 ### Installation
 - To work requires the key Api
