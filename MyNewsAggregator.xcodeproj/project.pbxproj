@@ -14,6 +14,7 @@
 		9507C716234228DB00C51C57 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9507C715234228DB00C51C57 /* CategoryViewModel.swift */; };
 		9507C7182342507500C51C57 /* BookmarksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9507C7172342507500C51C57 /* BookmarksManager.swift */; };
 		9507C71A2342712500C51C57 /* BookmarksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9507C7192342712500C51C57 /* BookmarksViewModel.swift */; };
+		9507C71D23427BCE00C51C57 /* TableViewCellViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9507C71C23427BCE00C51C57 /* TableViewCellViewModelType.swift */; };
 		9556BBFA233E3A4700BBEBB3 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9556BBF9233E3A4700BBEBB3 /* AlertController.swift */; };
 		9556BBFD233E3A9200BBEBB3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9556BBFC233E3A9200BBEBB3 /* Utils.swift */; };
 		9556BBFF233E529200BBEBB3 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9556BBFE233E529200BBEBB3 /* NetworkManager.swift */; };
@@ -56,6 +57,7 @@
 		9507C715234228DB00C51C57 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		9507C7172342507500C51C57 /* BookmarksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksManager.swift; sourceTree = "<group>"; };
 		9507C7192342712500C51C57 /* BookmarksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewModel.swift; sourceTree = "<group>"; };
+		9507C71C23427BCE00C51C57 /* TableViewCellViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModelType.swift; sourceTree = "<group>"; };
 		9556BBF9233E3A4700BBEBB3 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		9556BBFC233E3A9200BBEBB3 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		9556BBFE233E529200BBEBB3 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -114,6 +116,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		9507C71B23427BAE00C51C57 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				9507C71C23427BCE00C51C57 /* TableViewCellViewModelType.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		9556BBF8233E3A2D00BBEBB3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +154,7 @@
 		95781513225F8484004DA308 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9507C71B23427BAE00C51C57 /* Protocol */,
 				95781511225F8470004DA308 /* Article.swift */,
 				9556BC02233E6D4800BBEBB3 /* ArticlesResponse.swift */,
 				92FDF48922FC1885000685AD /* Countries.plist */,
@@ -435,6 +446,7 @@
 				95781519225F85A7004DA308 /* ConnectionManager.swift in Sources */,
 				9507C71A2342712500C51C57 /* BookmarksViewModel.swift in Sources */,
 				9507C7142342279C00C51C57 /* CategoryTableViewController.swift in Sources */,
+				9507C71D23427BCE00C51C57 /* TableViewCellViewModelType.swift in Sources */,
 				95781512225F8470004DA308 /* Article.swift in Sources */,
 				9556BBFD233E3A9200BBEBB3 /* Utils.swift in Sources */,
 				95781527225F877A004DA308 /* BookmarksViewController.swift in Sources */,

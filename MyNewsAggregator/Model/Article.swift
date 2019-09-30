@@ -64,6 +64,9 @@ extension Article: NSCopying {
     }
 }
 
+// MARK: - TableViewCellViewModelType
+extension Article: TableViewCellViewModelType { }
+
 // MARK: - Keys
 private extension Article {
     enum Key: String {

@@ -6,9 +6,9 @@
 //  Copyright © 2019 PyrovSergey. All rights reserved.
 //
 
-import SwipeCellKit
 import RxSwift
 import RxCocoa
+import SwipeCellKit
 
 class BookmarksViewController: UIViewController {
     
@@ -77,11 +77,7 @@ private extension BookmarksViewController {
             .bookmarks
             .drive(tableView.rx.items(cellIdentifier: "bookmarkCell", cellType: BookmarkCell.self)) { row, element, cell in
                 cell.delegate = self
-                cell.sourceLabel.text = element.sourceTitle
-                cell.sourceImage.sd_setImage(with: URL(string: element.sourceImageUrl), placeholderImage: UIImage(named: "news-placeholder.jpg"))
-                cell.articleTitleLabel.text = element.articleTitle
-                cell.articleImage.sd_setImage(with: URL(string: element.articleImageUrl), placeholderImage: UIImage(named: "news-placeholder.jpg"))
-                cell.articlePublicationTimeLabel.text = Utils.getDateFromApi(date: element.articlePublicationTime).timeAgoSinceNow
+                cell.viewModel = element
             }.disposed(by: bag)
         
         viewModel

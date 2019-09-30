@@ -6,13 +6,24 @@
 //  Copyright © 2019 PyrovSergey. All rights reserved.
 //
 
-import UIKit
+import SDWebImage
 
 class NewsCell: UITableViewCell {
     
-    @IBOutlet weak var sourceImage: UIImageView!
-    @IBOutlet weak var sourceLabel: UILabel!
-    @IBOutlet weak var articleTitleLabel: UILabel!
-    @IBOutlet weak var articlePublicationTimeLabel: UILabel!
-    @IBOutlet weak var articleImage: UIImageView!
+    @IBOutlet private weak var sourceImage: UIImageView!
+    @IBOutlet private weak var sourceLabel: UILabel!
+    @IBOutlet private weak var articleTitleLabel: UILabel!
+    @IBOutlet private weak var articlePublicationTimeLabel: UILabel!
+    @IBOutlet private weak var articleImage: UIImageView!
+    
+    weak var viewModel: TableViewCellViewModelType? {
+        willSet(viewModel) {
+            guard let viewModel = viewModel else { return }
+            sourceLabel.text = viewModel.sourceTitle
+            sourceImage.sd_setImage(with: URL(string: viewModel.sourceImageUrl), placeholderImage: UIImage(named: "news-placeholder.jpg"))
+            articleTitleLabel.text = viewModel.articleTitle
+            articleImage.sd_setImage(with: URL(string: viewModel.articleImageUrl), placeholderImage: UIImage(named: "news-placeholder.jpg"))
+            articlePublicationTimeLabel.text = Utils.getDateFromApi(date: viewModel.articlePublicationTime).timeAgoSinceNow
+        }
+    }
 }

@@ -60,11 +60,7 @@ private extension CategoryTableViewController {
         viewModel?
             .articles
             .drive(tableView.rx.items(cellIdentifier: "newsCell", cellType: NewsCell.self)) { row, element, cell in
-                cell.sourceLabel.text = element.sourceTitle
-                cell.sourceImage.sd_setImage(with: URL(string: element.sourceImageUrl), placeholderImage: UIImage(named: "news-placeholder.jpg"))
-                cell.articleTitleLabel.text = element.articleTitle
-                cell.articleImage.sd_setImage(with: URL(string: element.articleImageUrl), placeholderImage: UIImage(named: "news-placeholder.jpg"))
-                cell.articlePublicationTimeLabel.text = Utils.getDateFromApi(date: element.articlePublicationTime).timeAgoSinceNow
+                cell.viewModel = element
             }.disposed(by: bag)
         
         viewModel?
